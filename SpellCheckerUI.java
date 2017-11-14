@@ -7,7 +7,7 @@
 /**
  *
  * @author earapogiorgi
- */
+ */ 
 public class SpellCheckerUI extends javax.swing.JFrame {
     /**
      * Creates new form SpellCheckerUI
