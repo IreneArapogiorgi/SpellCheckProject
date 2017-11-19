@@ -52,10 +52,49 @@ public class Word {
 		}
 	}
 
-	public int  findLevenshteinDistance() {
+	public int  findLevenshteinDistance(String wordOfDictionary) {
 		//could be a stored procedure?
 		//to be called in the queries of the next method
-		//are the objects in the existsInDictionary 
+		//are the objects in the existsInDictionary visible to use?
+		
+		int[][] table = new int[this.word.length() + 1][wordOfDictionary.length() + 1]; //two dimension matrix table
+		int cost = 0;
+
+		//variables that will hold the Levenshtein math types
+		int delete;
+		int insert;
+		int substitute;
+
+		//initializing first line
+		for (int i = 0; i <= this.word.length(); i++) {
+			table[i][0] = i;
+		}
+		//initializing first column
+		for (int j = 0; j <= wordOfDictionary.length(); j++) {
+			table[0][j] = j;
+		}
+
+		//comparing words
+		for (int i = 1; i <= this.word.length(); i++) {
+			for (int j = 1; j <= wordOfDictionary.length(); j++) {
+				if (this.word.charAt(i - 1) == wordOfDictionary.charAt(j - 1)) {
+					cost = 0; //if letters are the same, cost is zero
+				} else {
+					cost = 1; //if letters are not the same, cost is one
+				}
+
+			//Levenshtein math types
+			delete = table[i - 1][j] + 1;			 //the element moves 1 line upward
+			insert = table[i][j - 1] + 1; 			 //the element moves 1 column left
+			substitute = table[i-1][j-1] + cost;		 //the element moves BOTH 1 column left AND 1 line upward
+
+			table[i][j] = Math.min(delete, Math.min(insert, substitute)); //minimum value is assigned
+
+			}
+		}
+
+		return table[this.word.length()][wordOfDictionary.length()];
+		
 	}
 	
 	public String findSuggestions() {
