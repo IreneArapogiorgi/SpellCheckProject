@@ -24,7 +24,8 @@ public class Word {
 	public void existsInDictionary() throws SQLException {
 		// method that determines the value of isSpelledCorrectly
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement stmt = con.prepareStatement("SELECT * FROM Dictionary WHERE Dictionary.Word = ? " ) ;
+		stmt.setString( 1 , this.word);
 
 		try{
 			// establishing connection with database
@@ -34,11 +35,8 @@ public class Word {
 			stmt = con.createStatement();
 			
 			//creating a result set object to hold the query results
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Dictionary WHERE Dictionary.Word = this.word");
-			// we have to find a method to use instead of executeQuery, so that we can pass the parameter of the given word
-			// otherwise we could use this "bad programming practice" :
-			// select ... where t=' " +word+"'")
-			
+			ResultSet rs = stmt.executeQuery();
+						
 			if(rs.getString("Dictionary.Word") == this.word){	//getString method helps us read what the query return and compare it
 				this.isSpelledCorrectly = true;
 			} else {
