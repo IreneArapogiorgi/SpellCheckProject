@@ -4,12 +4,9 @@ import java.io.IOException;
 public class DataInputTest {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		//System.out.println("give");
-		//String[] words = DataInput.inputFromUser();
-		//for (String x: words )
-		//System.out.println(x);
-		String[] words = DataInput.inputFromTxt("C:\\Users\\nick\\Desktop\\text.txt");
-		for (String word: words)
-		System.out.println(word);
+		Word[] words = DataInput.readInputFromTxt("C:\\Users\\nick\\Desktop\\text.txt", "UTF-8");
+		for (Word word: words)
+		System.out.println("[" + word + "]");
+		System.out.println(words.length);
 	}
 }
