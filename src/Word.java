@@ -16,4 +16,12 @@ public class Word {
 		return word + "||" + dividingChars;
 	}
 
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
 }

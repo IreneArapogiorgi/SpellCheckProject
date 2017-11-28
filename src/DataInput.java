@@ -22,6 +22,7 @@ public class DataInput {
 		while ((currentWord = bufferReader.readLine()) != null) {
 			words += currentWord + newLine;
 		}
+		
 		words = words.substring(0,words.length()-2); //discarding the last newline
 		bufferReader.close();
 		return splitStringToWords(words);
@@ -29,8 +30,9 @@ public class DataInput {
 	}
 
 	private static Word[] splitStringToWords(String words) {
-		final String regex = "([^\\p{L}\\p{N}]+)";
-		String[] wordsArray = words.split("(?=(?!^)"+regex+")(?<!"+regex+")|(?!"+regex+")(?<="+regex+")");
+		final String notWordOrNumber = "([^\\p{L}\\p{N}]+)";
+		String[] wordsArray = words.split(
+				"(?=(?!^)"+notWordOrNumber+")(?<!"+notWordOrNumber+")|(?!"+notWordOrNumber+")(?<="+notWordOrNumber+")");
 		Word[] wordsType = new Word[wordsArray.length/2];
 		
 		for (int i = 0; i < wordsArray.length - 1; i += 2){
