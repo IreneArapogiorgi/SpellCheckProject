@@ -24,15 +24,15 @@ public class Word {
 	public void existsInDictionary() throws SQLException {
 		// method that determines the value of isSpelledCorrectly
 		Connection con = null;
-		PreparedStatement stmt = con.prepareStatement("SELECT * FROM Dictionary WHERE Dictionary.Word = ? " ) ;
-		stmt.setString( 1 , this.word);
-
+		PreparedStatement stmt = null ;
+		
 		try{
 			// establishing connection with database
 			con = DriverManager.getConnection("jdbc:myDriver:myDatabase","username","password"); 
 			
 			//creating a statement object to query the database
-			stmt = con.createStatement();
+			stmt = con.prepareStatement("SELECT DISTINCT* FROM Dictionary WHERE Dictionary.Word = ? " ) ;
+			stmt.setString( 1 , this.word);
 			
 			//creating a result set object to hold the query results
 			ResultSet rs = stmt.executeQuery();
