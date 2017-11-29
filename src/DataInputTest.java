@@ -13,6 +13,7 @@ public class DataInputTest {
 		}
 		System.out.println(words.length);
 		double time2 = System.currentTimeMillis();
-		System.out.println("Program took " + (double)(time2-time)/1000 + " seconds to execute.");
+		double execTime = (time2-time)/1000;
+		System.out.println("Program took " + execTime + " seconds to execute, " + (1000 * execTime/words.length) + " milliseconds per word");
 	}
 }
