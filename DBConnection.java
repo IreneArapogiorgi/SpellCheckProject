@@ -20,7 +20,7 @@ public class DBConnection {
 	public void open() throws SQLException {
 		//load the drivers class file into memory
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Class.forName(/*driver*/).newInstance();
 		} catch(ClassNotFoundException e) {
 			System.out.println("Class not found");
 		} catch(IllegalAccessException e) {
