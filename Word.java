@@ -102,7 +102,10 @@ public class Word {
 		//we could use both distance and soundex - and crossexamine results to find the best possible solution
 		
 	//findSuggestions with distance
-	
+	//imports
+	import java.util.List;
+	import java.util.ArrayList;
+	import java.sql.*;
 	public static List<String> findSuggestions(String word, int wordLength) throws Exception{
 		Connection con = null;
 		DBConnection dbc = new DBConnection();
