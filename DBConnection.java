@@ -8,9 +8,9 @@ public class DBConnection {
 
 	//settings for db connection
 
-	private final String url = "jdbc:mysql://195.251.249.131:3306/ismgroup8";
-	private final String dbusername = "ismgroup8";
-	private final String dbpassword = "mpu5vv";
+	private final String url = //nned url;
+	private final String dbusername = //need username;
+	private final String dbpassword = //need pass;
 
 	//method to get connection
 	public Connection getConnection() {
