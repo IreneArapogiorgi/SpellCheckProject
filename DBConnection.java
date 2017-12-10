@@ -1,3 +1,6 @@
+/* 
+this class make connection with DataBase
+*/
 import java.sql.*;
 
 public class DBConnection {
