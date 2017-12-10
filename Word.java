@@ -100,6 +100,51 @@ public class Word {
 		//should determine the value of bestPossibleSolution
 		//could return void - depends on structure
 		//we could use both distance and soundex - and crossexamine results to find the best possible solution
+		
+	//findSuggestions with distance
+	
+	public static List<String> findSuggestions(String word, int wordLength) throws Exception{
+		Connection con = null;
+		DBConnection dbc = new DBConnection();
+
+		String sql = "SELECT word FROM words WHERE length > 1 AND length < 4;";
+		String dbWord = null;
+		List <String> listOfWords = new ArrayList<String>();
+
+		try {
+			dbc.open();
+			con = dbc.getConnection();
+
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while ( rs.next()) {
+				dbWord = rs.getString("word");
+				if(dbWord != null) {
+					if (Distance3.levinDistance(word, dbWord) <= 3) {
+						listOfWords.add(dbWord);
+					}
+				}
+
+			}
+
+			rs.close();
+			stmt.close();
+			dbc.close();
+
+			return listOfWords;
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		} finally {
+			try {
+					dbc.close();
+			} catch (Exception e) {
+				//do nothing
+			}
+		}
+
+	}
 	}
 	
 	// get methods
