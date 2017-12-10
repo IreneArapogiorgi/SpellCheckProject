@@ -102,7 +102,8 @@ public class Word {
 		//we could use both distance and soundex - and crossexamine results to find the best possible solution
 		
 	//findSuggestions with distance
-	//imports
+	//this method needs a table with words and length of the words
+		//imports
 	import java.util.List;
 	import java.util.ArrayList;
 	import java.sql.*;
