@@ -1,40 +1,37 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package my.spellchecker;
 
-public class Words {
-
-	public Words(String inputWord){
-
-		this.word = inputWord;
-		this.isSpelledCorrect = false; 		//initializing values
-		this.bestPossibleSolution = null; 	//to be changed
-
-	}
-
+/**
+ *
+ * @author earapogiorgi
+ */
+public class Word {
+    
 	private String word ;
+	
+	private final String dividingChars;
+	
+	public Word(String inputWord , String dividingChars){	//class constructor
 
-	private boolean isSpelledCorrectly ;
-
-	private String bestPossibleCorrection ;
-
-	public boolean existsInDictionary() {
-		// method that determines the value of isSpelledCorrectly
-		//could return void though - depends on structure
+		this.word = inputWord;			//what the user wrote
+		this.dividingChars = dividingChars;	//non-letter characters following the word
+	}
+	
+	@Override
+        public String toString(){
+		return word + "||" + dividingChars;
 	}
 
-	public String findSuggestions() {
-		// method to be called when the boolean remains false
-		//should determine the value of bestPossibleSolution
-		//could return void - depends on structure
+	public String getWord() {
+		return word;
 	}
 
-	public String getBestPossibleSolution() {
-
-		return this.bestPossibleSolution;
-
+	public void setWord(String word) {
+		this.word = word;
 	}
 
-	public boolean getIsSpelledCorrectly() {
-
-		return this.isSpelledCorrectly;
-
-	}
 }
