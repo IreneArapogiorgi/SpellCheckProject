@@ -20,20 +20,20 @@ public class Word {
 
 	private String dividingChars;
 
-	public Word(String inputWord, String dividingChars) { // class constructor
+	public Word(String inputWord, String dividingChars) throws SQLException { // class constructor
 
 		this.word = inputWord; // what the user wrote
-		this.isSpelledCorrectly = false; // initial value to be changed through existsInDictionary
+		this.isSpelledCorrectly = this.existsInDictionary(); // initial value to be changed through existsInDictionary
 		this.bestPossibleSolution = null; // initial value to be changed through findSuggestions
 		this.dividingChars = dividingChars; // non-letter characters following the word
 	}
 
-	public static boolean existsInDictionary(String word, int length) throws SQLException {
+	public boolean existsInDictionary() throws SQLException {
 		try {
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
 			Connection myConn = DriverManager.getConnection(url, "AngelG", "SnowWhite");
 			CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
-			cStmt.setString(1, word);
+			cStmt.setString(1, this.word);
 			cStmt.execute();
 			if (cStmt.getResultSet().next()) {
 				return true;
@@ -42,7 +42,6 @@ public class Word {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println(1);
 			return false;
 		}
 	}
