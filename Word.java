@@ -78,6 +78,8 @@ public class Word {
 		this.bestPossibleSolutions = bestPossibleSolutions;
 	}
 	
-	
+	public boolean getIsSpelledCorrectly() {
+		return isSpelledCorrectly;
+	}
 
 }
