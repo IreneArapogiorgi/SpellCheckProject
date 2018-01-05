@@ -57,9 +57,11 @@ public class Word {
 			String[] str = new String[3];
 			int i = 0;
 			while (rs.next()) {
-			bestPossibleSolutions[i] = rs.getString("words");
+			//bestPossibleSolutions[i] = rs.getString(i + 1);
+			str[i] = rs.getString(1);
 			i ++;
 			}
+			bestPossibleSolutions = str;
 			rs.close();
 			cStmt.close();
 			myConn.close();
@@ -67,32 +69,15 @@ public class Word {
 			ex.printStackTrace();
 		} 
 	}
+
+	public String[] getBestPossibleSolutions() {
+		return bestPossibleSolutions;
+	}
+
+	public void setBestPossibleSolutions(String[] bestPossibleSolutions) {
+		this.bestPossibleSolutions = bestPossibleSolutions;
+	}
 	
-	// get methods
-
-		public String getBestPossibleSolutions() { // provides access to private value
-
-			return this.bestPossibleSolutions;
-
-		}
-
-		public boolean getIsSpelledCorrectly() { // provides access to private value
-
-			return this.isSpelledCorrectly;
-
-		}
-
-		public String getWord() { // provides access to private value
-
-			return this.word;
-
-		}
-
-		private String getDividingChars() { // provides access to private value
-
-			return this.dividingChars;
-
-		}
 	
 
 }
