@@ -567,7 +567,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }
 
-    private void pathButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void pathButtonActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         try {
             DataInput.readInputFromTxt(pathTextField.getText(), encodingTypeTextField.getText());
         } catch (IOException e) {
