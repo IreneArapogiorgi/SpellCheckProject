@@ -23,7 +23,7 @@ public class Word {
 		this.dividingChars = dividingChars; // non-letter characters following the word
 		this.isSpelledCorrectly = existsInDictionary();
 		if (this.isSpelledCorrectly = false)
-			this.bestPossibleSolutions[0] = this.findSuggestions(); // initial value to be changed through findSuggestions
+			this.findSuggestions(); // initial value to be changed through findSuggestions
 		}
 	public static boolean isΑNumber(String str) {
 		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
