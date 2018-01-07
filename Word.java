@@ -17,23 +17,22 @@ public class Word {
 
 	public String[] bestPossibleSolutions = new String[3];
 
-	private String dividingChars;
+	private String dividingChars;	
 	public Word(String inputWord, String dividingChars) throws SQLException { // class constructor
 		this.word = inputWord; // what the user wrote
 		this.dividingChars = dividingChars; // non-letter characters following the word
-		if (isΑNumber(word)) {
-			this.isSpelledCorrectly = true;
-		} else {
-			this.isSpelledCorrectly = existsInDictionary();
-			if (this.isSpelledCorrectly = false)
-				this.bestPossibleSolutions[0] = this.findSuggestions(); // initial value to be changed through findSuggestions
+		this.isSpelledCorrectly = existsInDictionary();
+		if (this.isSpelledCorrectly = false)
+			this.bestPossibleSolutions[0] = this.findSuggestions(); // initial value to be changed through findSuggestions
 		}
-	}
 	public static boolean isΑNumber(String str) {
 		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
 	}
 	public boolean existsInDictionary() throws SQLException {
 		try {
+			if (isΑNumber(word)) {
+				this.isSpelledCorrectly = true;
+			}
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
 			Connection myConn = DriverManager.getConnection(url, "root", "george");
 			CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
@@ -49,8 +48,6 @@ public class Word {
 			return false;
 		}
 	}
-	
-	
 	public void findSuggestions() throws SQLException{
 		try {
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
