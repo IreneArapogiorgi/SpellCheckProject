@@ -320,7 +320,12 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         });
         pathTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pathTextFieldActionPerformed(evt);
+                try {
+					pathButtonActionPerformed(evt);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
