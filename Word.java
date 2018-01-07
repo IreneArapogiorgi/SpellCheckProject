@@ -18,15 +18,20 @@ public class Word {
 	private String[] bestPossibleSolutions = new String[3];
 
 	private String dividingChars;
-
 	public Word(String inputWord, String dividingChars) throws SQLException { // class constructor
-
 		this.word = inputWord; // what the user wrote
-		this.isSpelledCorrectly = this.existsInDictionary(); // initial value to be changed through existsInDictionary
-		this.bestPossibleSolutions = null; // initial value to be changed through findSuggestions
 		this.dividingChars = dividingChars; // non-letter characters following the word
+		if (isΑNumber(word)) {
+			this.isSpelledCorrectly = true;
+		} else {
+			if (this.isSpelledCorrectly = false)
+				this.bestPossibleSolutions[0] = this.findSuggestions(); // initial value to be changed through findSuggestions
+		}
 	}
 
+	public static boolean isΑNumber(String str) {
+		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
+	}
 	public boolean existsInDictionary() throws SQLException {
 		try {
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
