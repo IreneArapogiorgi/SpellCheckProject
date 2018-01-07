@@ -36,11 +36,12 @@ public class Word {
 	}
 
 	public static boolean isFirstWord(String input, int count) {
-		if (count == 0) {
+		Word last = DataInput.wordsList.get(count - 2);
+		char lchar = last.dividingChars.charAt(last.dividingChars.length());
+		if (count == 1) {
 			return true;
-			/*
-			 * } else if () { // word after ! or . or ... return true;
-			 */
+		} else if (lchar != '.' && lchar != '!'&& lchar != ';') { 
+			return true;
 		} else {
 			return false;
 		}
