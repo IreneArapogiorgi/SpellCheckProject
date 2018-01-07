@@ -1,4 +1,4 @@
-package spellchecker;
+package SpellChecker;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -11,32 +11,67 @@ public class Word {
 
 	// class variables
 
+	private static int index; // number of word orderly in the sentence
+
+	private int count;
+
 	private String word;
 
-	public boolean isSpelledCorrectly;
+	private boolean isSpelledCorrectly;
 
-	public String[] bestPossibleSolutions = new String[3];
+	private String[] bestPossibleSolutions = new String[3];
 
-	private String dividingChars;	
+	private String dividingChars;
+
 	public Word(String inputWord, String dividingChars) throws SQLException { // class constructor
+		this.count = ++index;
 		this.word = inputWord; // what the user wrote
 		this.dividingChars = dividingChars; // non-letter characters following the word
-		this.isSpelledCorrectly = existsInDictionary();
-		if (this.isSpelledCorrectly = false)
-			this.findSuggestions(); // initial value to be changed through findSuggestions
-		}
+		this.isSpelledCorrectly = false;
+		this.bestPossibleSolutions = null; // initial value to be changed through findSuggestions
+	}
+
 	public static boolean isΑNumber(String str) {
 		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
 	}
-	public boolean existsInDictionary() throws SQLException {
-		try {
-			if (isΑNumber(word)) {
-				this.isSpelledCorrectly = true;
+
+	public static boolean isFirstWord(String input, int count) {
+		if (count == 0) {
+			return true;
+			/*
+			 * } else if () { // word after ! or . or ... return true;
+			 */
+		} else {
+			return false;
+		}
+	}
+
+	public void wordProcessing() throws SQLException {
+		String input = this.word;
+		int count = this.count;
+		if (isΑNumber(input)) {
+			this.isSpelledCorrectly = true;
+		} else if (isFirstWord(input, count)) {
+			this.isSpelledCorrectly = (existsInDictionary(input) || existsInDictionary(input.toLowerCase()));
+			if (this.isSpelledCorrectly = false) {
+				this.findSuggestions();
 			}
+		} else {
+			this.isSpelledCorrectly = existsInDictionary(input);
+			if (this.isSpelledCorrectly = false) {
+				this.findSuggestions();
+			}
+		}
+	}
+
+	public boolean existsInDictionary(String input) throws SQLException {
+		try {
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
-			Connection myConn = DriverManager.getConnection(url, "root", "george");
+			String username = "root"; // here you will write the username of the MySQL connection
+			String password = "SnowWhite"; // here you will write the password of the MySQL connection
+			Connection myConn = DriverManager.getConnection(url, username, password);
 			CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
-			cStmt.setString(1, this.word);
+			cStmt.setString(1, input);
 			cStmt.execute();
 			if (cStmt.getResultSet().next()) {
 				return true;
@@ -48,10 +83,13 @@ public class Word {
 			return false;
 		}
 	}
-	public void findSuggestions() throws SQLException{
+
+	public void findSuggestions() throws SQLException {
 		try {
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
-			Connection myConn = DriverManager.getConnection(url, "root", "george");
+			String username = "root"; // here you will write the username of the MySQL connection
+			String password = "SnowWhite"; // here you will write the password of the MySQL connection
+			Connection myConn = DriverManager.getConnection(url, username, password);
 			CallableStatement cStmt = myConn.prepareCall("{call findsuggestions(?)}");
 			cStmt.setString(1, this.word);
 			cStmt.execute();
@@ -59,9 +97,9 @@ public class Word {
 			String[] str = new String[3];
 			int i = 0;
 			while (rs.next()) {
-			//bestPossibleSolutions[i] = rs.getString(i + 1);
-			str[i] = rs.getString(1);
-			i ++;
+				// bestPossibleSolutions[i] = rs.getString(i + 1);
+				str[i] = rs.getString(1);
+				i++;
 			}
 			bestPossibleSolutions = str;
 			rs.close();
@@ -69,9 +107,38 @@ public class Word {
 			myConn.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-		} 
+		}
 	}
 
+	public String getWord() {
+		return word;
 	}
 
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public String getDividingChars() {
+		return dividingChars;
+	}
+
+	public void setDividingChars(String dividingChars) {
+		this.dividingChars = dividingChars;
+	}
+
+	public boolean getIsSpelledCorrectly() {
+		return isSpelledCorrectly;
+	}
+
+	public void setSpelledCorrectly(boolean isSpelledCorrectly) {
+		this.isSpelledCorrectly = isSpelledCorrectly;
+	}
+
+	public String[] getBestPossibleSolutions() {
+		return bestPossibleSolutions;
+	}
+
+	public void setBestPossibleSolutions(String[] bestPossibleSolutions) {
+		this.bestPossibleSolutions = bestPossibleSolutions;
+	}
 }
