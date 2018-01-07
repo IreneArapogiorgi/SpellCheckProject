@@ -47,7 +47,8 @@ public class DataInput {
 	 * @throws IOException
 	 * @see #splitStringToWords(String)
 	 */
-
+	static List<Word> wordsList = new LinkedList<Word>();
+	
 	public static List<Word> readInputFromHtml(String url) throws IOException {
 		Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
 		doc = new Cleaner(Whitelist.basic()).clean(doc);
