@@ -114,13 +114,14 @@ public class DataInput {
 	 *            - text to be processed
 	 * @return List of Word objects
 	 */
+	static List<Word> wordsList = new LinkedList<Word>();
 
 	public static List<Word> splitStringToWords(String text) {
 		final String notWordOrNumber = "([^\\p{L}\\p{N}]+)";
 		String[] splittedText = text.split("(?=(?!^)" + notWordOrNumber + ")(?<!" + notWordOrNumber + ")|" + "(?!"
 				+ notWordOrNumber + ")(?<=" + notWordOrNumber + ")");
 
-		List<Word> wordsList = new LinkedList<Word>();
+		
 		int currentWord = 0;
 
 		if (splittedText[0].matches(notWordOrNumber)) {
