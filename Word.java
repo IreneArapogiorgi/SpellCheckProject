@@ -13,9 +13,9 @@ public class Word {
 
 	private String word;
 
-	private boolean isSpelledCorrectly;
+	public boolean isSpelledCorrectly;
 
-	private String[] bestPossibleSolutions = new String[3];
+	public String[] bestPossibleSolutions = new String[3];
 
 	private String dividingChars;
 	public Word(String inputWord, String dividingChars) throws SQLException { // class constructor
@@ -75,16 +75,6 @@ public class Word {
 		} 
 	}
 
-	public String[] getBestPossibleSolutions() {
-		return bestPossibleSolutions;
-	}
-
-	public void setBestPossibleSolutions(String[] bestPossibleSolutions) {
-		this.bestPossibleSolutions = bestPossibleSolutions;
-	}
-	
-	public boolean getIsSpelledCorrectly() {
-		return isSpelledCorrectly;
 	}
 
 }
