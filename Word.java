@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 //imports classes to be used in connection with database
 
 public class Word {
@@ -13,6 +14,12 @@ public class Word {
 
 	private static int index; // number of word orderly in the sentence
 
+	/**
+	 *field to be used in existsInDictionary and findSuggestions in
+	 *order to connect to the MySQL database
+	 *@see existsInDictionary(String)
+	 *@see findSuggestions()
+	 */
 	protected static Connection myConn;
 	
 	private int count;
@@ -24,21 +31,36 @@ public class Word {
 	private String[] bestPossibleSolutions = new String[3];
 
 	private String dividingChars;
+	
+	private static Pattern pattern = Pattern.compile("\\d+");
 
-	public Word(String inputWord, String dividingChars) throws SQLException { // class constructor
+	/**
+	 * Class Constructor
+	 * <p> When creating an object, the index variable gets increased by one and its value
+	 * is inserted in the count value, thus the (static) index variable shows the number<br>
+	 * of objects created and the count shows the ascending number of each object.
+	 * @param inputWord - the word (or number) of the object
+	 * @param dividingChars - the symbols that follow the word
+	 * @throws SQLException
+	 */
+	public Word(String inputWord, String dividingChars) throws SQLException {
 		this.count = ++index;
-		this.word = inputWord; // what the user wrote
-		this.dividingChars = dividingChars; // non-letter characters following the word
-		this.isSpelledCorrectly = false;
-		this.bestPossibleSolutions = null; // initial value to be changed through findSuggestions
+		this.word = inputWord;
+		this.dividingChars = dividingChars;
 	}
 
+	/**
+	 * Method that checks if a String is a number, so as to not
+	 * check if numbers exist in the database.
+	 * @param str input String
+	 * @return
+	 */
 	public static boolean isΑNumber(String str) {
-		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
+		return pattern.matcher(str).matches();
 	}
 
 	public static boolean isFirstWord(String input, int count) {
-		Word last = DataInput.wordsList.get(count - 2);
+		Word last = DataInput.wordsList.get(count - 1);
 		char lchar = last.dividingChars.charAt(last.dividingChars.length());
 		if (count == 1) {
 			return true;
@@ -49,6 +71,15 @@ public class Word {
 		}
 	}
 
+	/**
+	 * Method that calls the existInDictionary and findSuggestions methods accordingly
+	 * <p>If the input is too long and not found in the database, the largest words of the database
+	 * are used as suggestions. In case of the String being a number,<br> then it is considered correct
+	 * and if it is the first word of a sentence it is checked with both an upper case and an lower case
+	 * first letter.<br> If the previous cases are not met, and the word is not found in the database, then
+	 * the findSuggestions method is called.
+	 * @throws SQLException
+	 */
 	public void wordProcessing() throws SQLException {
 		String input = this.word;
 		int count = this.count;
@@ -81,17 +112,16 @@ public class Word {
 		}
 	}
 
-	/** Method used to check if a word exists in the dictionary of the database
+	/** 
+	 * Method used to check if a word exists in the dictionary of the database.
 	 * <p>
-	 * existsInDictionary receives a word that the user wrote, and connects to the MySQL database 
-	 * (through the method jdbcConnection), in order to use a MySQL Stored Procedure and compare
-	 * the word given with 
+	 * Method existsInDictionary receives the input, connects to the MySQL database,
+	 * in order to use a MySQL Stored Procedure<br> and search for the word in the database.
+	 * If a result is returned from the stored procedure, then the word has been found.
 	 * 
-	 * 
-	 * @param input
+	 * @param input - the word being searched
 	 * @return boolean result based on whether the word is spelled correctly
 	 * @throws SQLException
-	 * see jdbcConnection()
 	 */
 	public boolean existsInDictionary(String input) throws SQLException {
 		try {
@@ -160,5 +190,10 @@ public class Word {
 
 	public void setBestPossibleSolutions(String[] bestPossibleSolutions) {
 		this.bestPossibleSolutions = bestPossibleSolutions;
+	}
+	
+	@Override
+	public String toString() {
+		return word + dividingChars;
 	}
 }
