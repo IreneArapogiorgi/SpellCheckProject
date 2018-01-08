@@ -54,7 +54,11 @@ public class Word {
 			this.isSpelledCorrectly = true;
 		} else if (input.length() > 25 ) {
 			/* in order to avoid any search for suggestions in case of a big word*/
-			this.isSpelledCorrectly = existsInDictionary(input);
+			if (input.length() <= 27 ) {
+				this.isSpelledCorrectly = existsInDictionary(input);
+			} else {
+				this.isSpelledCorrectly = false;
+			}
 			if (this.isSpelledCorrectly = false) {
 				this.bestPossibleSolutions[0] = "στρογγυλοκουλουριαζόμασταν";
 				this.bestPossibleSolutions[1] = "στρογγυλοκουλουριαζόσασταν";
