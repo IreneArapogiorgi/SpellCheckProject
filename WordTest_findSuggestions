@@ -23,14 +23,14 @@ import org.junit.Test;
 
 public class WordTest_findSuggestions {
 	
-	// setUp method is used to start the junit test and print the message "setting up..."
+	// setUp method is executed at the start of every test of junit and prints "setting up..."
 	
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("settinng up...");
 	}
 
-	// tearDown method is used to finish the junit test and print the message "end of test"
+	// tearDown method is executed at the end of every test of junit test and prints "end of test"
 
 	@After
 	public void tearDown() throws Exception {
@@ -41,7 +41,8 @@ public class WordTest_findSuggestions {
 	 * The method used to make the tests
 	 *
 	 * Creation of object "Word", word1
-	 * 
+	 *
+	 * findSuggestions assignation from the object "word1" located at the Word class
 	 * Creation of the string array "str" with length 3 Initialisation of the
 	 * array "str" through the object "word1" from the method
 	 * getBestPossibleSolutions Creation of the string array "CorrectSolutions"
@@ -55,6 +56,7 @@ public class WordTest_findSuggestions {
 	@Test
 	public void testFindSuggestions() throws SQLException {
 		Word word1 = new Word("παιράσαμε", " ");
+		word1.findSuggestions();
 		String[] str = new String[3];
 		str = word1.getBestPossibleSolutions();
 		String[] CorrectSolutions = new String[] { "μοιράσαμε", "κοιτάξαμε", "περάσαμε" }; // random
