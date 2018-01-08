@@ -95,7 +95,6 @@ public class Word {
 	 */
 	public boolean existsInDictionary(String input) throws SQLException {
 		try {
-			Connection myConn = DriverManager.getConnection(url, username, password);
 			CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
 			cStmt.setString(1, input);
 			cStmt.execute();
@@ -112,7 +111,6 @@ public class Word {
 
 	public void findSuggestions() throws SQLException {
 		try {
-			Connection myConn = DriverManager.getConnection(url, username, password);
 			CallableStatement cStmt = myConn.prepareCall("{call findsuggestions(?)}");
 			cStmt.setString(1, this.word);
 			cStmt.execute();
