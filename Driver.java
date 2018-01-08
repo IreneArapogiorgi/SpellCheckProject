@@ -1,26 +1,21 @@
-package Heh; 
-import java.sql.*;
+package SpellChecker;
 
-public class Driver {
+import java.sql.Connection;
+import java.sql.DriverManager;
 
-	public static void main(String[] args) {
+public class MyDriver {
+
+	private static Connection myConn;
+
+	public static void jdbcConnection() {
 		try {
-			// I will connect to MySQL database with Java
-			
-			// 1. Getting connection to database
-			Connection myConn = 
-					DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/languages", "AngelG", "SnowWhite");
-			// 2. Creating a statement
-			Statement myStat = myConn.createStatement();
-			// 3. Execution of SQL Query
-					ResultSet myRs = myStat.executeQuery("select * from animals");
-			// 4. Process the result set
-							while (myRs.next()) {
-								System.out.println(myRs.getString("name"));
-							}
+			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
+			String username = "root"; // here you will write the username of the MySQL connection
+			String password = "SnowWhite"; // here you will write the password of the MySQL connection
+			myConn = DriverManager.getConnection(url, username, password);
+			Word.myConn = myConn;
 		} catch (Exception ex) {
-			ex.printStackTrace();	
-		} 
-	} 
-
+			ex.printStackTrace();
+		}
+	}
 }
