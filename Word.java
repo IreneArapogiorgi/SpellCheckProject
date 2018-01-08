@@ -65,6 +65,18 @@ public class Word {
 		}
 	}
 
+	/** Method used to check if a word exists in the dictionary of the database
+	 * <p>
+	 * existsInDictionary receives a word that the user wrote, and connects to the MySQL database 
+	 * (through the method jdbcConnection), in order to use a MySQL Stored Procedure and compare
+	 * the word given with 
+	 * 
+	 * 
+	 * @param input
+	 * @return boolean result based on whether the word is spelled correctly
+	 * @throws SQLException
+	 * see jdbcConnection()
+	 */
 	public boolean existsInDictionary(String input) throws SQLException {
 		try {
 			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
