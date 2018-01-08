@@ -8,6 +8,18 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 //imports classes to be used in connection with database
 
+/**
+ * Word class provides all the useful information about each word of the given text and all the necessary functionalities to process the words.
+ * <p>
+ * The uses of the class are to: <br>
+ * - determine whether a word is the first word of the sentence <br>
+ * - determine whether a string consists only of numeric characters <br>
+ * - determine whether a word is spelled correctly <br>
+ * - find the three most relevant words in the dictionary, to suggest as corrections if the word is incorrect <br>
+ * @author Javengers team
+ */
+
+
 public class Word {
 
 	// class variables
