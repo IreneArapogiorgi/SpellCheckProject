@@ -50,7 +50,17 @@ public class Word {
 	public void wordProcessing() throws SQLException {
 		String input = this.word;
 		int count = this.count;
-		if (isΑNumber(input)) {
+		if (input.length() == 0) {
+			this.isSpelledCorrectly = true;
+		} else if (input.length() > 25 ) {
+			/* in order to avoid any search for suggestions in case of a big word*/
+			this.isSpelledCorrectly = existsInDictionary(input);
+			if (this.isSpelledCorrectly = false) {
+				this.bestPossibleSolutions[0] = "στρογγυλοκουλουριαζόμασταν";
+				this.bestPossibleSolutions[1] = "στρογγυλοκουλουριαζόσασταν";
+				this.bestPossibleSolutions[2] = "στρογγυλοκουλουριαζόντουσαν";
+			}	
+		} else if (isΑNumber(input)) {
 			this.isSpelledCorrectly = true;
 		} else if (isFirstWord(input, count)) {
 			this.isSpelledCorrectly = (existsInDictionary(input) || existsInDictionary(input.toLowerCase()));
