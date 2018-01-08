@@ -1,6 +1,6 @@
 /*javadics is a schema created in the schemas section.. 
------  create schema `javadics` default CHAR SET utf8;  ----*/
-use javadics;
+-----  create schema `dictionary` default CHAR SET utf8;  ----*/
+use dictionary;
 DROP table IF EXISTS `greekwords`;
 CREATE TABLE greekwords (
 	 id int auto_increment,
@@ -21,14 +21,14 @@ order to check the spelling of the word given when called,
 and returns the id of the given word*/
 DROP procedure IF EXISTS `existsindictionary`;
 DELIMITER $$
-USE `javadics`$$
+USE `dictionary`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `existsindictionary`(IN word varchar(27))
 BEGIN
 	declare wlen int;
 	SET wlen = CHAR_LENGTH(word);
 	SELECT id 
     FROM greekwords
-    WHERE len = length and binary word =words ;
+    WHERE wlen = length and binary word =words ;
 END$$
 DELIMITER ;
 
@@ -36,7 +36,7 @@ DELIMITER ;
 acccording to the relative levenshtein distance algorithm*/
 DELIMITER $$
 DROP FUNCTION IF EXISTS levenshteindist $$
-USE `javadics`$$
+USE `dictionary`$$
 CREATE FUNCTION levenshteindist(w1 VARCHAR(27), w2 VARCHAR(27))
   RETURNS INT
   DETERMINISTIC
@@ -84,7 +84,7 @@ DELIMITER ;
  that was created above*/
 drop procedure IF EXISTS `findsuggestions`;
 DELIMITER $$
-USE `javadics`$$
+USE `dictionary`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `findsuggestions`(IN word varchar(28))
 BEGIN
 declare wlen int;
@@ -93,7 +93,7 @@ CREATE temporary table `temptable` AS
 select words  
 from greekwords
 where  length = wlen
-order by levenshteindist
+order by levenshteindist(word, words)
 limit 1,3;
 END$$
 DELIMITER ; 
