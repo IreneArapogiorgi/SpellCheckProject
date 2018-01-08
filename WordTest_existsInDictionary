@@ -1,0 +1,55 @@
+package org.test.junit.core;
+
+import static org.junit.Assert.*;
+
+import java.sql.SQLException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+* WordTest_existsInDictionary class is used to verify the correctness of existsInDictionary method from Word class. 
+* 
+* @author Javengers team
+* @see existsInDictionary
+*/
+
+
+public class WordTest_existsInDictionary {
+
+	@Before
+	public void setUp() throws Exception {
+		System.out.println("setting up...");
+	}
+
+	/**
+	* The method used to make the tests
+	*
+	* Creation of objects "Word", word1 and word2
+	* 
+	* assert statements
+	* <p>
+	* assertTrue checks that the boolean condition is true. Object word1 is initialized with a word that exists in the Dictionary, so the boolean has to be true. 
+	* assertFalse checks that the boolean condition is false. Object word2 is initialized with a word that does not exist in the Dictionary, so the boolean has to be false.
+	* 
+	* @throws SQLException
+	*/
+	@Test
+	public void testExistsInDictionary() throws SQLException {
+		try {
+			Word word1 = new Word("Ο" , " ");
+			Word word2 = new Word("καιρώς" , ".");
+			assertTrue(word1.getIsSpelledCorrectly());
+			assertFalse(word2.getIsSpelledCorrectly());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("end of test...");
+	}
+
+}
