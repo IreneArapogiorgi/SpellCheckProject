@@ -30,13 +30,6 @@ public class WordTest_findSuggestions {
 		System.out.println("settinng up...");
 	}
 
-	// tearDown method is executed at the end of every test of junit test and prints "end of test"
-
-	@After
-	public void tearDown() throws Exception {
-		System.out.println("end of test");
-	}
-
 	/**
 	 * The method used to make the tests
 	 *
@@ -64,5 +57,12 @@ public class WordTest_findSuggestions {
 		for (int i = 0; i < 3; i++) {
 			assertTrue(str[i].equals(CorrectSolutions[i]));
 		}
+	}
+	
+	// tearDown method is executed at the end of every test of junit test and prints "end of test"
+
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("end of test");
 	}
 }
