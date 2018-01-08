@@ -23,6 +23,7 @@ import org.junit.Test;
 
 public class DataInputTest_splitStringToWords {
 
+	// setUp method is used to start the junit test and print the message "setting up..."
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("setting up...");
@@ -55,9 +56,10 @@ public class DataInputTest_splitStringToWords {
 				&& (kairos.getDividingChars().equals(list.get(1).getDividingChars())));
 	}
 
+	// tearDown method is used to finish the junit test and print the message "end of test..."
 	@After
 	public void tearDown() throws Exception {
-		System.out.println("ending...");
+		System.out.println("end of test...");
 	}
 
 }
