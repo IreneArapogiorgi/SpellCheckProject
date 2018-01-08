@@ -70,7 +70,18 @@ public class Word {
 	public static boolean isΑNumber(String str) {
 		return pattern.matcher(str).matches();
 	}
-
+	
+	/**
+	 * Method that checks if the String of the given word is the first word of the sentence the user wrote.
+	 * it takes as input a String with the word the user gave and its count in the List of Words that holds the full text
+	 * it is checked both from whether count is equal to 1 
+	 * AND from wether the dividingChars of the previous Word object in the list are such that declare the end of the sentence.
+	 * in the mentioned cases the method returns true, otherwise it returns false
+	 * the usage of this method is needed to determine how the word will be later processed 
+	 * @param input input String , count input int
+	 * @return boolean
+	 */
+	
 	public static boolean isFirstWord(String input, int count) {
 		Word last = DataInput.wordsList.get(count - 1);
 		char lchar = last.dividingChars.charAt(last.dividingChars.length());
@@ -137,42 +148,35 @@ public class Word {
 	 * @throws SQLException
 	 */
 	public boolean existsInDictionary(String input) throws SQLException {
-		try {
-			CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
-			cStmt.setString(1, input);
-			cStmt.execute();
-			if (cStmt.getResultSet().next()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+		
+		CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
+		cStmt.setString(1, input);
+		cStmt.execute();
+		if (cStmt.getResultSet().next()) {
+			return true;
+		} else {
 			return false;
 		}
+		
 	}
 
 	public void findSuggestions() throws SQLException {
-		try {
-			CallableStatement cStmt = myConn.prepareCall("{call findsuggestions(?)}");
-			cStmt.setString(1, this.word);
-			cStmt.execute();
-			ResultSet rs = cStmt.getResultSet();
-			String[] str = new String[3];
-			int i = 0;
-			while (rs.next()) {
-				str[i] = rs.getString(1);
-				i++;
-			}
-			bestPossibleSolutions = str;
-			rs.close();
-			cStmt.close();
-			myConn.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+	
+		CallableStatement cStmt = myConn.prepareCall("{call findsuggestions(?)}");
+		cStmt.setString(1, this.word);
+		cStmt.execute();			
+		ResultSet rs = cStmt.getResultSet();
+		String[] str = new String[3];
+		int i = 0;
+		while (rs.next()) {
+			str[i] = rs.getString(1);
+			i++;
 		}
+		bestPossibleSolutions = str;
+		rs.close();
+		cStmt.close();
 	}
-
+	
 	public String getWord() {
 		return word;
 	}
