@@ -22,11 +22,15 @@ import org.junit.Test;
  */
 
 public class WordTest_findSuggestions {
-
+	
+	// The method used to start the junit test and print the message "settinng up..."
+	
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("settinng up...");
 	}
+
+	// The method used to finish the junit test and print the message "end of test"
 
 	@After
 	public void tearDown() throws Exception {
