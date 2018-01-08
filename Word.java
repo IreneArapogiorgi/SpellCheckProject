@@ -13,6 +13,8 @@ public class Word {
 
 	private static int index; // number of word orderly in the sentence
 
+	protected static Connection myConn;
+	
 	private int count;
 
 	private String word;
@@ -93,9 +95,6 @@ public class Word {
 	 */
 	public boolean existsInDictionary(String input) throws SQLException {
 		try {
-			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
-			String username = "root"; // here you will write the username of the MySQL connection
-			String password = "SnowWhite"; // here you will write the password of the MySQL connection
 			Connection myConn = DriverManager.getConnection(url, username, password);
 			CallableStatement cStmt = myConn.prepareCall("{call existsindictionary(?)}");
 			cStmt.setString(1, input);
@@ -113,9 +112,6 @@ public class Word {
 
 	public void findSuggestions() throws SQLException {
 		try {
-			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
-			String username = "root"; // here you will write the username of the MySQL connection
-			String password = "SnowWhite"; // here you will write the password of the MySQL connection
 			Connection myConn = DriverManager.getConnection(url, username, password);
 			CallableStatement cStmt = myConn.prepareCall("{call findsuggestions(?)}");
 			cStmt.setString(1, this.word);
@@ -124,7 +120,6 @@ public class Word {
 			String[] str = new String[3];
 			int i = 0;
 			while (rs.next()) {
-				// bestPossibleSolutions[i] = rs.getString(i + 1);
 				str[i] = rs.getString(1);
 				i++;
 			}
