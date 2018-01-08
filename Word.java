@@ -80,33 +80,34 @@ public class Word {
 	 * the findSuggestions method is called.
 	 * @throws SQLException
 	 */
+	
 	public void wordProcessing() throws SQLException {
 		String input = this.word;
 		int count = this.count;
 		if (input.length() == 0) {
 			this.isSpelledCorrectly = true;
 		} else if (input.length() > 25 ) {
-			/* in order to avoid any search for suggestions in case of a big word*/
+			 
 			if (input.length() <= 27 ) {
 				this.isSpelledCorrectly = existsInDictionary(input);
 			} else {
 				this.isSpelledCorrectly = false;
 			}
-			if (this.isSpelledCorrectly = false) {
+			if (this.isSpelledCorrectly == false) {
 				this.bestPossibleSolutions[0] = "στρογγυλοκουλουριαζόμασταν";
 				this.bestPossibleSolutions[1] = "στρογγυλοκουλουριαζόσασταν";
 				this.bestPossibleSolutions[2] = "στρογγυλοκουλουριαζόντουσαν";
-			}	
+			}
 		} else if (isΑNumber(input)) {
 			this.isSpelledCorrectly = true;
 		} else if (isFirstWord(input, count)) {
 			this.isSpelledCorrectly = (existsInDictionary(input) || existsInDictionary(input.toLowerCase()));
-			if (this.isSpelledCorrectly = false) {
+			if (this.isSpelledCorrectly == false) {
 				this.findSuggestions();
 			}
 		} else {
 			this.isSpelledCorrectly = existsInDictionary(input);
-			if (this.isSpelledCorrectly = false) {
+			if (this.isSpelledCorrectly == false) {
 				this.findSuggestions();
 			}
 		}
