@@ -10,10 +10,49 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * SpellCheckerUI class is the leading class of our project.<br>
+ * It is used for the Graphical User Interface(GUI) of the spell checker project.
+ * 
+ * @author Javengers team
+ * @see Word,DataInput
+ */
+ 
 public class SpellCheckerUI extends javax.swing.JFrame {
+
     /**
-     * SpellCheckUI creates new form SpellCheckerUI
-     */
+    * Method used to initialize the JDialogs, the JPanels,<br>
+    * the JScrollPanes, the JLists, the JButtons, the JTextFields,<br>
+    * the JTextAreas,the JPasswordFields and the JLabels that <br>
+    * are used in the program.
+    * 
+    * JDialogs are dialog windows.<br>
+    * 
+    * JPanels are generic lightweight containers.<br>
+    * 
+    * JScrollPanes are scrollable views of lightweight components.<br>
+    * 
+    * JLists are components that allow the user to select one or <br>
+    * more objects from a list.<br>
+    * 
+    * JButtons are "push" buttons.<br>
+    * 
+    * JTextFields are lightweight components that allows the editing<br>
+    * of a single line of text.<br>
+    * 
+    * JTextAreas are multi-line areas that display plain text.<br>
+    * 
+    * JLabels are display areas for a short text string, image or both.<br>
+    * 
+    * JPasswordFields are components that allow the editing of a <br>
+    * single line of text where the view indicates something was <br>
+    * typed, but does not show the original characters.
+    * <p>
+    * This method initializes the names, positions, borders and <br>
+    * sizes of the above. The JButtons also are connected with the<br>
+    * corresponding "actionPerformed" type methods and the kind of<br>
+    * data shown in the JLists is specified. 
+    */
     public SpellCheckerUI() {
         initComponents();
     }
