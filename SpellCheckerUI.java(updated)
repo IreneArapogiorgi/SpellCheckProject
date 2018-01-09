@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.Connection;
-import java.sql.DriverManager;
 /**
  *
  * @author earapogiorgi
@@ -24,18 +22,10 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     public SpellCheckerUI() {
         initComponents();
     }
-    private static Connection myConn;
-    public static void jdbcConnection() {
-		try {
-			String url = "jdbc:mysql://127.0.0.1:3306/javadics?useSSL=false";
-			String username = "root"; // here you will write the username of the MySQL connection
-			String password = "SnowWhite"; // here you will write the password of the MySQL connection
-			myConn = DriverManager.getConnection(url, username, password);
-			Word.myConn = myConn;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-    }        
+    
+    static String username = new String();
+    static String password = new String();
+          
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,15 +68,25 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         chooseInsertTextButton = new javax.swing.JButton();
         chooseOpenFileButton = new javax.swing.JButton();
         browseHtmlButton = new javax.swing.JButton();
-        exitButton = new javax.swing.JButton();
+        exitButton1 = new javax.swing.JButton();
         htmlDialog = new javax.swing.JDialog();
         openHtmlPanel = new javax.swing.JPanel();
         urlTextField = new javax.swing.JTextField();
         urlButton = new javax.swing.JButton();
         cancelHtmlDialogButton = new javax.swing.JButton();
+        databaseDialog = new javax.swing.JDialog();
+        databasePanel = new javax.swing.JPanel();
+        usernameLabel1 = new javax.swing.JLabel();
+        usernameLabel2 = new javax.swing.JLabel();
+        usernameTextField = new javax.swing.JTextField();
+        passwordLabel1 = new javax.swing.JLabel();
+        passwordLabel2 = new javax.swing.JLabel();
+        passwordPasswordField = new javax.swing.JPasswordField();
+        exitButton2 = new javax.swing.JButton();
+        nextButton2 = new javax.swing.JButton();
         welcomePanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
-        nextButton = new javax.swing.JButton();
+        nextButton1 = new javax.swing.JButton();
 
         spellCheckDialog.setMinimumSize(new java.awt.Dimension(340, 400));
 
@@ -481,11 +481,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        exitButton.setText("Exit");
-        exitButton.setMinimumSize(new java.awt.Dimension(77, 23));
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
+        exitButton1.setText("Exit");
+        exitButton1.setMinimumSize(new java.awt.Dimension(77, 23));
+        exitButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitButtonActionPerformed(evt);
+                exitButton1ActionPerformed(evt);
             }
         });
 
@@ -495,7 +495,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             chooseDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chooseDialogLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
             .addComponent(choosePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -504,7 +504,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             .addGroup(chooseDialogLayout.createSequentialGroup()
                 .addComponent(choosePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -579,6 +579,117 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        databasePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Database Connection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        databasePanel.setMinimumSize(new java.awt.Dimension(500, 200));
+        databasePanel.setPreferredSize(new java.awt.Dimension(500, 300));
+
+        usernameLabel1.setText("Insert the username used to access your MySQL database.");
+
+        usernameLabel2.setText("If you have not change it during or after the MySQL installation process, please type: root");
+
+        usernameTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        usernameTextField.setText("username");
+        usernameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernameTextFieldFocusGained(evt);
+            }
+        });
+        usernameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameTextFieldActionPerformed(evt);
+            }
+        });
+
+        passwordLabel1.setText("Insert the password used to access your MySQL database.");
+
+        passwordLabel2.setText("Your password may have been first created during the MySQL installation process");
+
+        passwordPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        passwordPasswordField.setText("jPasswordField");
+        passwordPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordPasswordFieldFocusGained(evt);
+            }
+        });
+        passwordPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordPasswordFieldActionPerformed(evt);
+            }
+        });
+
+        exitButton2.setText("Exit");
+        exitButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitButton2ActionPerformed(evt);
+            }
+        });
+
+        nextButton2.setText("Next");
+        nextButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout databasePanelLayout = new javax.swing.GroupLayout(databasePanel);
+        databasePanel.setLayout(databasePanelLayout);
+        databasePanelLayout.setHorizontalGroup(
+            databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(databasePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameLabel1)
+                    .addComponent(usernameLabel2)
+                    .addComponent(passwordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordLabel2)
+                    .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, databasePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nextButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(exitButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        databasePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {exitButton2, nextButton2});
+
+        databasePanelLayout.setVerticalGroup(
+            databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(databasePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(usernameLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernameLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passwordLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passwordLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(exitButton2)
+                    .addComponent(nextButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        databasePanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {exitButton2, nextButton2});
+
+        javax.swing.GroupLayout databaseDialogLayout = new javax.swing.GroupLayout(databaseDialog.getContentPane());
+        databaseDialog.getContentPane().setLayout(databaseDialogLayout);
+        databaseDialogLayout.setHorizontalGroup(
+            databaseDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(databasePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 491, Short.MAX_VALUE)
+        );
+        databaseDialogLayout.setVerticalGroup(
+            databaseDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(databasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         welcomePanel.setBackground(new java.awt.Color(226, 226, 230));
@@ -589,10 +700,10 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         welcomeLabel.setText("Welcome To Our Spell Checker!");
 
-        nextButton.setText("Next");
-        nextButton.addActionListener(new java.awt.event.ActionListener() {
+        nextButton1.setText("Next");
+        nextButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextButton1ActionPerformed(evt);
+                nextButton11ActionPerformed(evt);
             }
         });
 
@@ -606,7 +717,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                     .addComponent(welcomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomePanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nextButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         welcomePanelLayout.setVerticalGroup(
@@ -615,7 +726,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nextButton)
+                .addComponent(nextButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -647,12 +758,10 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         spellCheckDialog.setVisible(false);
     }                                             
 
-    private void nextButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-    SpellCheckerUI.jdbcConnection();
-	
-        chooseDialog.setVisible(true);
+    private void nextButton11ActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        databaseDialog.setVisible(true);
         this.setVisible(false);
-    }                                           
+    }                                            
 
     private void closeExceptionWindowButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                           
         exceptionInOpenFileUsingPathDialog.setVisible(false);
@@ -690,8 +799,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             DataInput.readInputFromTxt(pathTextField.getText(), encodingTypeTextField.getText());
         } catch (IOException e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }                                          
 
@@ -711,9 +818,9 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         fileDialog.setVisible(true);
     }                                                    
 
-    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void exitButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         System.exit(0);
-    }                                          
+    }                                           
 
     private void replaceAltWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
@@ -736,8 +843,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             DataInput.readInputFromHtml(urlTextField.getText());
         } catch (IOException e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }                                         
 
@@ -748,6 +853,37 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private void ignoreWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
     }                                                
+
+    private void usernameTextFieldFocusGained(java.awt.event.FocusEvent evt) {                                              
+        usernameTextField.setText("");
+    }                                             
+
+    private void exitButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        System.exit(0);
+    }                                           
+
+    private void nextButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        try {
+            username = usernameTextField.getText();
+            password = passwordPasswordField.getText();
+            MyDriver.jdbcConnection(username, password);
+            chooseDialog.setVisible(true);
+        } catch (SQLException e) {
+            Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }                                           
+
+    private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+
+    }                                                 
+
+    private void passwordPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+
+    }                                                     
+
+    private void passwordPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {                                                  
+        passwordPasswordField.setText("");
+    }                                                 
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -798,16 +934,23 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private javax.swing.JButton chooseOpenFileButton;
     private javax.swing.JPanel choosePanel;
     private javax.swing.JButton closeExceptionWindowButton;
+    private javax.swing.JDialog databaseDialog;
+    private javax.swing.JPanel databasePanel;
     private javax.swing.JTextField encodingTypeTextField;
     private javax.swing.JDialog exceptionInOpenFileUsingPathDialog;
     private javax.swing.JLabel exceptionLabel;
-    private javax.swing.JButton exitButton;
+    private javax.swing.JButton exitButton1;
+    private javax.swing.JButton exitButton2;
     private javax.swing.JDialog fileDialog;
     private javax.swing.JDialog htmlDialog;
     private javax.swing.JButton ignoreWordButton;
-    private javax.swing.JButton nextButton;
+    private javax.swing.JButton nextButton1;
+    private javax.swing.JButton nextButton2;
     private javax.swing.JPanel openFilePanel;
     private javax.swing.JPanel openHtmlPanel;
+    private javax.swing.JLabel passwordLabel1;
+    private javax.swing.JLabel passwordLabel2;
+    private javax.swing.JPasswordField passwordPasswordField;
     private javax.swing.JButton pathButton;
     private javax.swing.JTextField pathTextField;
     private javax.swing.JButton replaceAltWordButton;
@@ -819,6 +962,9 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private javax.swing.JTextArea textTextArea;
     private javax.swing.JButton urlButton;
     private javax.swing.JTextField urlTextField;
+    private javax.swing.JLabel usernameLabel1;
+    private javax.swing.JLabel usernameLabel2;
+    private javax.swing.JTextField usernameTextField;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JPanel welcomePanel;
     private javax.swing.JPanel wrongSpelledTextPanel;
