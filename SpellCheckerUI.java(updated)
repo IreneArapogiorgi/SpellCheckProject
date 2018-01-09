@@ -959,6 +959,9 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        /*
+        *  run method is used to execute SpellCheckerUI 
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SpellCheckerUI().setVisible(true);
