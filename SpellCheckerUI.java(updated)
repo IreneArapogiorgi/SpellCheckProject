@@ -170,7 +170,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         altWordPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alternative Words", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         altWordList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Word 1", "Word 2", "Word 3", "Word 4", "Word 5" };
+            String[] strings = Word.getBestPossibleSolutions();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -865,13 +865,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             wordsList = DataInput.readInputFromHtml(urlTextField.getText());
             listHandling();
             
-            Word word = null;
+            /*Word word = null;
             for (int j = 0; j < wordsList.size(); j++) {
                 word = wordsList.get(j);
                 if (!word.getIsSpelledCorrectly()) {
                     str.add(word.getWord());
                 }
-            }
+            }*/
             spellCheckDialog.setVisible(true);
         } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
