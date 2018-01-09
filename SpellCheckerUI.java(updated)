@@ -133,6 +133,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             public int getSize() { return str.size(); }
             public Object getElementAt(int i) { return str.get(i); }
         });
+        wrongWordsList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         wrongWordsScrollPane.setViewportView(wrongWordsList);
 
         altWordButton.setText("Find Alternative");
@@ -243,14 +244,15 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         altWordPanelLayout.setVerticalGroup(
             altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(altWordPanelLayout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(replaceAltWordButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cancelButton2)
+                .addContainerGap(144, Short.MAX_VALUE))
+            .addGroup(altWordPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(altWordPanelLayout.createSequentialGroup()
-                        .addComponent(replaceAltWordButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton2))
-                    .addComponent(altWordScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(altWordScrollPane)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout alternativeWordDialogLayout = new javax.swing.GroupLayout(alternativeWordDialog.getContentPane());
@@ -786,12 +788,9 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private void altWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         String wrongWord = (String) wrongWordsList.getSelectedValue();
         Iterator<Word> iterator = wordsList.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getWord().equals(wrongWord)) {
-                altWords = iterator.next().getBestPossibleSolutions();
-            }
+        while (iterator.hasNext() && !(iterator.next().getWord().equals(wrongWord))) {
+            altWords = iterator.next().getBestPossibleSolutions();
         }
-        iterator = null;
         alternativeWordDialog.setVisible(true);
     }                                             
 
