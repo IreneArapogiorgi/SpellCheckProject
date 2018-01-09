@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package my.spellchecker;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -799,7 +796,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private void pathButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         try {
             DataInput.readInputFromTxt(pathTextField.getText(), encodingTypeTextField.getText());
-        } catch (IOException e) {
+        } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
         }
     }                                          
@@ -843,7 +840,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private void urlButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         try {
             DataInput.readInputFromHtml(urlTextField.getText());
-        } catch (IOException e) {
+        } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
         }
     }                                         
@@ -865,15 +862,20 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     }                                           
 
     private void nextButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        boolean w;
         try {
+            w = true;
             username = usernameTextField.getText();
             password = passwordPasswordField.getText();
             MyDriver.jdbcConnection(username, password);
-            chooseDialog.setVisible(true);
         } catch (SQLException e) {
+            w = false;
             databaseDialog.setVisible(false);
             databaseDialog.setVisible(true);
             Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, e);
+        }
+        if (w) {
+           chooseDialog.setVisible(true); 
         }
     }                                           
 
