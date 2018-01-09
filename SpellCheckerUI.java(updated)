@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package my.spellchecker;
+package my.spellchecker;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -579,6 +579,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        databaseDialog.setMinimumSize(new java.awt.Dimension(530, 300));
+
         databasePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Database Connection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
         databasePanel.setMinimumSize(new java.awt.Dimension(500, 200));
         databasePanel.setPreferredSize(new java.awt.Dimension(500, 300));
@@ -639,11 +641,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(databasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameLabel1)
                     .addComponent(usernameLabel2)
-                    .addComponent(passwordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLabel2)
-                    .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usernameLabel1)
+                    .addComponent(passwordLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, databasePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
