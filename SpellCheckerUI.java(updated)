@@ -95,7 +95,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         wrongSpelledTextPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Wrong Spelled Words", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         wrongWordsList.setModel(new javax.swing.AbstractListModel() {
-
             public int getSize() { return str.size(); }
             public Object getElementAt(int i) { return str.get(i); }
         });
@@ -778,11 +777,10 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             wordsList = DataInput.splitStringToWords(text);
             listHandling();
             
-            //Iterator<Word> iterator = wordsList.iterator();
             Word word = null;
             for (int j = 0; j < wordsList.size(); j++) {
-                //word = iterator.next();
-                if (!wordsList.get(j).getIsSpelledCorrectly()) {
+                word = wordsList.get(j);
+                if (!word.getIsSpelledCorrectly()) {
                     str.add(word.getWord());
                 }
             }
@@ -812,6 +810,15 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         try {
             wordsList = DataInput.readInputFromTxt(pathTextField.getText(), encodingTypeTextField.getText());
             listHandling();
+            
+            Word word = null;
+            for (int j = 0; j < wordsList.size(); j++) {
+                word = wordsList.get(j);
+                if (!word.getIsSpelledCorrectly()) {
+                    str.add(word.getWord());
+                }
+            }
+            spellCheckDialog.setVisible(true);
         } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
         }
@@ -857,6 +864,15 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         try {
             wordsList = DataInput.readInputFromHtml(urlTextField.getText());
             listHandling();
+            
+            Word word = null;
+            for (int j = 0; j < wordsList.size(); j++) {
+                word = wordsList.get(j);
+                if (!word.getIsSpelledCorrectly()) {
+                    str.add(word.getWord());
+                }
+            }
+            spellCheckDialog.setVisible(true);
         } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
         }
