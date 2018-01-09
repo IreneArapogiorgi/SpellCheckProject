@@ -170,9 +170,9 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         altWordPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Alternative Words", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         altWordList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = Word.getBestPossibleSolutions();
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            Word word = (Word)wrongWordsList.getSelectedValue();
+            public int getSize() { return word.getBestPossibleSolutions().length; }
+            public Object getElementAt(int i) { return word.getBestPossibleSolutions()[i] ; }
         });
         altWordScrollPane.setViewportView(altWordList);
 
