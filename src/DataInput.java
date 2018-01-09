@@ -1,12 +1,14 @@
+package spellchecker;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -48,9 +50,10 @@ public class DataInput {
 	 * @throws IOException
 	 * @see #splitStringToWords(String)
 	 */
-	static List<Word> wordsList = new LinkedList<Word>();
 	
-	public static List<Word> readInputFromHtml(String url) throws IOException {
+	
+	
+	public static List<Word> readInputFromHtml(String url) throws IOException, SQLException {
 		Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
 		doc = new Cleaner(Whitelist.basic()).clean(doc);
 		String text = doc.body().text();
@@ -81,7 +84,7 @@ public class DataInput {
 	 * @see #splitStringToWords(String)
 	 */
 	public static List<Word> readInputFromTxt(String path, String encodingType)
-			throws IOException, FileNotFoundException, UnsupportedEncodingException {
+			throws IOException, FileNotFoundException, UnsupportedEncodingException, SQLException {
 		FileInputStream fileInputStream = new FileInputStream(path);
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, encodingType));
 		final String newLine = System.lineSeparator();
@@ -117,12 +120,12 @@ public class DataInput {
 	 * @return List of Word objects
 	 */
 
-	public static List<Word> splitStringToWords(String text) {
+	public static List<Word> splitStringToWords(String text) throws SQLException{
 		final String notWordOrNumber = "([^\\p{L}\\p{N}]+)";
 		String[] splittedText = text.split("(?=(?!^)" + notWordOrNumber + ")(?<!" + notWordOrNumber + ")|" + "(?!"
 				+ notWordOrNumber + ")(?<=" + notWordOrNumber + ")");
 
-		
+		List<Word> wordsList = new LinkedList<Word>();
 		int currentWord = 0;
 
 		if (splittedText[0].matches(notWordOrNumber)) {
