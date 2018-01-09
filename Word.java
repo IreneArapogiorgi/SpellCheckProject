@@ -122,7 +122,6 @@ public class Word {
 	 * @throws SQLException
 	 */
 	public boolean existsInDictionary(String input) throws SQLException {
-		try {
 			CallableStatement cStmt = SpellCheckerUI.myConn.prepareCall("{call existsindictionary(?)}");
 			cStmt.setString(1, input);
 			cStmt.execute();
@@ -131,14 +130,23 @@ public class Word {
 			} else {
 				return false;
 			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			return false;
-		}
 	}
-
+	/**
+	 * Finds Alternatives of the user's misspelled words
+	 * <p>
+	 * findSuggestions connects with MySQL in order to execute a Stored Procedure
+	 * that through the Levenshtein Distance algorithm finds 3 or less alternative
+	 * suggestions of the word that the user misspelled. <br>
+	 * Afterwards, it inserts the suggestions into a table and closes the ResultSet
+	 * and CallableStatement that were used through the execution of the stored
+	 * procedure
+	 * 
+	 * @see ResultSet
+	 * @see CallableStatement
+	 * 
+	 * @throws SQLException
+	 */
 	public void findSuggestions() throws SQLException {
-		try {
 			CallableStatement cStmt = SpellCheckerUI.myConn.prepareCall("{call findsuggestions(?)}");
 			cStmt.setString(1, this.word);
 			cStmt.execute();
@@ -152,9 +160,6 @@ public class Word {
 			bestPossibleSolutions = str;
 			rs.close();
 			cStmt.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
 	}
 
 	public String getWord() {
