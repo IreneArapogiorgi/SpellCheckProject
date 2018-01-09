@@ -34,7 +34,7 @@ public class Word {
 	 * @see existsInDictionary(String)
 	 * @see findSuggestions()
 	 */
-	protected static Connection myConn;
+
 
 	private int count;
 
