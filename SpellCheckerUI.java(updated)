@@ -26,6 +26,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     static String password = new String();
     protected static Connection myConn;
     static List<Word> wordsList = new ArrayList<Word>();
+    static List<String> str = new LinkedList<>();
           
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,15 +95,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         wrongSpelledTextPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Wrong Spelled Words", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         wrongWordsList.setModel(new javax.swing.AbstractListModel() {
-            List<String> str = new LinkedList<>();
-            Iterator<Word> iterator = wordsList.iterator();
-            Word word;
-            while (iterator.hasNext()) {
-                word = iterator.next();
-                if (!word.getIsSpelledCorrectly()) {
-                    str.add(word.getWord());
-                }
-            }
+
             public int getSize() { return str.size(); }
             public Object getElementAt(int i) { return str.get(i); }
         });
@@ -784,6 +777,15 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             text = textTextArea.getText();
             wordsList = DataInput.splitStringToWords(text);
             listHandling();
+            
+            //Iterator<Word> iterator = wordsList.iterator();
+            Word word = null;
+            for (int j = 0; j < wordsList.size(); j++) {
+                //word = iterator.next();
+                if (!wordsList.get(j).getIsSpelledCorrectly()) {
+                    str.add(word.getWord());
+                }
+            }
             spellCheckDialog.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, ex);
