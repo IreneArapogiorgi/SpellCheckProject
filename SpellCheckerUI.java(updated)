@@ -12,10 +12,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.Iterator;
-/**
- *
- * @author earapogiorgi
- */
+import java.util.LinkedList;
+
 public class SpellCheckerUI extends javax.swing.JFrame {
     /**
      * Creates new form SpellCheckerUI
@@ -96,9 +94,17 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         wrongSpelledTextPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Wrong Spelled Words", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         wrongWordsList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Word 1", "Word 2", "Word 3", "Word 4", "Word 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            List<String> str = new LinkedList<>();
+            Iterator<Word> iterator = wordsList.iterator();
+            Word word;
+            while (iterator.hasNext()) {
+                word = iterator.next();
+                if (!word.getIsSpelledCorrectly()) {
+                    str.add(word.getWord());
+                }
+            }
+            public int getSize() { return str.size(); }
+            public Object getElementAt(int i) { return str.get(i); }
         });
         wrongWordsScrollPane.setViewportView(wrongWordsList);
 
@@ -784,13 +790,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         }
     }                                                
 
-    public static void listHandling() throws SQLException {
-        Iterator<Word> iterator = wordsList.iterator();
-        while (iterator.hasNext()) {
-            iterator.next().wordProcessing();
-        }
-    }
-    
     private void cancelTextPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         textDialog.setVisible(false);
     }                                                     
@@ -809,7 +808,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
     private void pathButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         try {
-            DataInput.readInputFromTxt(pathTextField.getText(), encodingTypeTextField.getText());
+            wordsList = DataInput.readInputFromTxt(pathTextField.getText(), encodingTypeTextField.getText());
+            listHandling();
         } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
         }
@@ -853,7 +853,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
     private void urlButtonActionPerformed(java.awt.event.ActionEvent evt) {                                          
         try {
-            DataInput.readInputFromHtml(urlTextField.getText());
+            wordsList = DataInput.readInputFromHtml(urlTextField.getText());
+            listHandling();
         } catch (Exception e) {
             exceptionInOpenFileUsingPathDialog.setVisible(true);
         }
@@ -908,6 +909,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         passwordPasswordField.setText("");
     }                                                 
 
+    public static void listHandling() throws SQLException {
+        Iterator<Word> iterator = wordsList.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().wordProcessing();
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
