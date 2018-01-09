@@ -871,6 +871,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             MyDriver.jdbcConnection(username, password);
             chooseDialog.setVisible(true);
         } catch (SQLException e) {
+            databaseDialog.setVisible(false);
+            databaseDialog.setVisible(true);
             Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, e);
         }
     }                                           
