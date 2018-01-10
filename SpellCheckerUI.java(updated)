@@ -78,13 +78,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         wrongWordsList = new javax.swing.JList();
         altWordButton = new javax.swing.JButton();
         cancelButton1 = new javax.swing.JButton();
+        finalTextButton = new javax.swing.JButton();
         alternativeWordDialog = new javax.swing.JDialog();
         altWordPanel = new javax.swing.JPanel();
         altWordScrollPane = new javax.swing.JScrollPane();
         altWordList = new javax.swing.JList();
         cancelButton2 = new javax.swing.JButton();
         replaceAltWordButton = new javax.swing.JButton();
-        finalTextButton = new javax.swing.JButton();
         exceptionInOpenFileUsingPathDialog = new javax.swing.JDialog();
         exceptionLabel = new javax.swing.JLabel();
         closeExceptionWindowButton = new javax.swing.JButton();
@@ -154,6 +154,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             }
         });
 
+        finalTextButton.setText("Show Final Text");
+        finalTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalTextButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout wrongSpelledTextPanelLayout = new javax.swing.GroupLayout(wrongSpelledTextPanel);
         wrongSpelledTextPanel.setLayout(wrongSpelledTextPanelLayout);
         wrongSpelledTextPanelLayout.setHorizontalGroup(
@@ -161,14 +168,21 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             .addGroup(wrongSpelledTextPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(wrongWordsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(wrongSpelledTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(altWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cancelButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(wrongSpelledTextPanelLayout.createSequentialGroup()
+                        .addComponent(altWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(wrongSpelledTextPanelLayout.createSequentialGroup()
+                        .addGroup(wrongSpelledTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(wrongSpelledTextPanelLayout.createSequentialGroup()
+                                .addComponent(cancelButton1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(finalTextButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
 
-        wrongSpelledTextPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {altWordButton, cancelButton1});
+        wrongSpelledTextPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {altWordButton, cancelButton1, finalTextButton});
 
         wrongSpelledTextPanelLayout.setVerticalGroup(
             wrongSpelledTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,6 +192,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                     .addGroup(wrongSpelledTextPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(altWordButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(finalTextButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton1))
                     .addComponent(wrongWordsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
@@ -219,13 +235,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             }
         });
 
-        finalTextButton.setText("Show Final Text");
-        finalTextButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finalTextButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout altWordPanelLayout = new javax.swing.GroupLayout(altWordPanel);
         altWordPanel.setLayout(altWordPanelLayout);
         altWordPanelLayout.setHorizontalGroup(
@@ -236,12 +245,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cancelButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(replaceAltWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(finalTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(replaceAltWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        altWordPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton2, finalTextButton, replaceAltWordButton});
+        altWordPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton2, replaceAltWordButton});
 
         altWordPanelLayout.setVerticalGroup(
             altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,15 +259,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                     .addGroup(altWordPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(replaceAltWordButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(finalTextButton)
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton2))
                     .addComponent(altWordScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        altWordPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {finalTextButton, replaceAltWordButton});
 
         javax.swing.GroupLayout alternativeWordDialogLayout = new javax.swing.GroupLayout(alternativeWordDialog.getContentPane());
         alternativeWordDialog.getContentPane().setLayout(alternativeWordDialogLayout);
@@ -844,10 +848,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         wrongWordsList.clearSelection();
     }                                             
 
-    private void cancelButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        alternativeWordDialog.setVisible(false);
-    }                                             
-
     private void cancelButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
         spellCheckDialog.setVisible(false);
     }                                             
@@ -935,17 +935,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         System.exit(0);
     }                                           
 
-    private void replaceAltWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        String alternativeWord = (String) wrongWordsList.getSelectedValue();
-        for (Word w : wordsList) {
-            if (w.getWord().equals(alternativeWord)){
-                w.setWord(alternativeWord);
-                w.setSpelledCorrectly(true);
-                break;
-            }
-        }
-    }                                                    
-
     private void browseHtmlButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         htmlDialog.setVisible(true);
     }                                                
@@ -1027,7 +1016,25 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             finalTextTextArea.setText(w.toString());
         }
         finalTextDialog.setVisible(true);
+        spellCheckDialog.setVisible(false);
     }                                               
+
+    private void replaceAltWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+        String alternativeWord = (String) wrongWordsList.getSelectedValue();
+        for (Word w : wordsList) {
+            if (w.getWord().equals(alternativeWord)){
+                w.setWord(alternativeWord);
+                w.setSpelledCorrectly(true);
+                break;
+            }
+        }
+        wrongWordsList.clearSelection();
+        alternativeWordDialog.setVisible(false);
+    }                                                    
+
+    private void cancelButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        alternativeWordDialog.setVisible(false);
+    }                                             
 
     public static void listHandling() throws SQLException {
         Iterator<Word> iterator = wordsList.iterator();
