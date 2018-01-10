@@ -740,7 +740,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         );
 
         finalTextPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Final Text", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-        finalTextPanel.setMinimumSize(new java.awt.Dimension(500, 300));
+        finalTextPanel.setMinimumSize(new java.awt.Dimension(512, 324));
 
         finalTextTextArea.setEditable(false);
         finalTextTextArea.setBackground(new java.awt.Color(240, 240, 240));
@@ -748,6 +748,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         finalTextTextArea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         finalTextTextArea.setRows(1000000);
         finalTextTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        finalTextTextArea.setMinimumSize(new java.awt.Dimension(500, 300));
         finalTextScrollPane.setViewportView(finalTextTextArea);
 
         javax.swing.GroupLayout finalTextPanelLayout = new javax.swing.GroupLayout(finalTextPanel);
@@ -1020,17 +1021,17 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     }                                                 
 
     private void finalTextButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
-         String string = new String();
-    	   for (Word w : wordsList){
-    		      string = string.concat(w.toString());            
-         }
-    	   finalTextTextArea.setText(string);
-         finalTextDialog.setVisible(true);
-         spellCheckDialog.setVisible(false);
+        String string = new String();
+        for (Word w : wordsList){
+           string = string.concat(w.toString());
+        }
+        finalTextTextArea.setText(string);
+        finalTextDialog.setVisible(true);
+        spellCheckDialog.setVisible(false);
     }                                               
 
     private void replaceAltWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        String alternativeWord = (String) wrongWordsList.getSelectedValue();
+        String alternativeWord = (String) altWordList.getSelectedValue();
         for (Word w : wordsList) {
             if (w.getWord().equals(alternativeWord)){
                 w.setWord(alternativeWord);
@@ -1038,7 +1039,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 break;
             }
         }
-        wrongWordsList.clearSelection();
+        altWordList.clearSelection();
         alternativeWordDialog.setVisible(false);
     }                                                    
 
