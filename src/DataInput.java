@@ -1,4 +1,4 @@
-package gr.aueb.dmst.theSpellCheckProject.Javengers;
+package gr.aueb.dmst.SpellCheckProject.Javengers;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -50,6 +50,9 @@ public class DataInput {
 	 * @throws IOException
 	 * @see #splitStringToWords(String)
 	 */
+	
+	
+	
 	public static List<Word> readInputFromHtml(String url) throws IOException, SQLException {
 		Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
 		doc = new Cleaner(Whitelist.basic()).clean(doc);
@@ -116,6 +119,7 @@ public class DataInput {
 	 *            - text to be processed
 	 * @return List of Word objects
 	 */
+
 	public static List<Word> splitStringToWords(String text) throws SQLException{
 		final String notWordOrNumber = "([^\\p{L}\\p{N}]+)";
 		String[] splittedText = text.split("(?=(?!^)" + notWordOrNumber + ")(?<!" + notWordOrNumber + ")|" + "(?!"
