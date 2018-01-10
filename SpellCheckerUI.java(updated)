@@ -243,15 +243,16 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
         altWordPanelLayout.setVerticalGroup(
             altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(altWordPanelLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(replaceAltWordButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cancelButton2)
-                .addContainerGap(144, Short.MAX_VALUE))
-            .addGroup(altWordPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, altWordPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(altWordScrollPane)
+                .addGroup(altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(altWordPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(replaceAltWordButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelButton2)
+                        .addGap(16, 16, 16))
+                    .addComponent(altWordScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -484,7 +485,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             }
         });
 
-        browseHtmlButton.setText("Browse Html");
+        browseHtmlButton.setText("Open URL");
         browseHtmlButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 browseHtmlButtonActionPerformed(evt);
@@ -530,11 +531,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         chooseDialog.getContentPane().setLayout(chooseDialogLayout);
         chooseDialogLayout.setHorizontalGroup(
             chooseDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(choosePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chooseDialogLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
-            .addComponent(choosePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         chooseDialogLayout.setVerticalGroup(
             chooseDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -792,6 +793,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             altWords = iterator.next().getBestPossibleSolutions();
         }
         alternativeWordDialog.setVisible(true);
+        wrongWordsList.clearSelection();
     }                                             
 
     private void cancelButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
@@ -952,7 +954,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, e);
         }
         if (w) {
-           chooseDialog.setVisible(true); 
+           chooseDialog.setVisible(true);
+           databaseDialog.setVisible(false);
         }
     }                                           
 
