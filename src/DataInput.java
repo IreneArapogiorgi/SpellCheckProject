@@ -1,4 +1,4 @@
-package gr.aueb.dmst.SpellChecker.Javengers;
+package gr.aueb.dmst.theSpellCheckProject.Javengers;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
