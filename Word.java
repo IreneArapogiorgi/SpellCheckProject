@@ -1,11 +1,24 @@
-package spellchecker;
+package gr.aueb.dmst.SpellChecker.Javengers;
 
+//imports classes to be used in connection with database
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
-//imports classes to be used in connection with database
 
+
+ /**
+  * Word class provides all the useful information about each word of the given text 
+  * and all the necessary functionalities to process the words.
+  * <p>
+  * The uses of the class are to: <br>
+  * - determine whether a word is the first word of the sentence <br>
+  * - determine whether a string consists only of numeric characters <br>
+  * - determine whether a word is spelled correctly <br>
+  * - find the three most relevant words in the dictionary, to suggest as 
+  * corrections if the word is incorrect <br>
+  * @author Javengers team
+  */
 public class Word {
 
 	// class variables
@@ -64,6 +77,19 @@ public class Word {
 		return pattern.matcher(this.getWord()).matches();
 	}
 
+	/** Method that checks if the String of the given word is the first word of the
+	 * sentence the user wrote. it takes as input a String with the word the user
+	 * gave and its count in the List of Words that holds the full text it is
+	 * checked both from whether count is equal to 1 AND from wether the
+	 * dividingChars of the previous Word object in the list are such that declare
+	 * the end of the sentence. in the mentioned cases the method returns true,
+	 * otherwise it returns false the usage of this method is needed to determine
+	 * how the word will be later processed
+	 * 
+	 * @param input
+	 *            input String , count input int
+ 	 * @return boolean
+ 	 */
 	public boolean isFirstWord() {
 		int count = this.getCount();
 		if (count <= 1) {
@@ -75,14 +101,6 @@ public class Word {
 				return false;
 			}
 		}
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
 	}
 
 	/**
@@ -119,34 +137,24 @@ public class Word {
 		} else if (this.isΑNumber()) {
 			this.isSpelledCorrectly = true;
 		} else if (this.isFirstWord()) {
-			this.isSpelledCorrectly = (existsInDictionary(input) || existsInDictionary(input.toLowerCase()));
+			this.isSpelledCorrectly = (existsInDictionary(input) ||
+					existsInDictionary(input.toLowerCase()));
 			if (this.isSpelledCorrectly && input.equals(input.toLowerCase())) {
 				this.isSpelledCorrectly = false;
 				if (input.length() == 1) {
-					this.bestPossibleSolutions[0] = input.toUpperCase();
-					this.bestPossibleSolutions[1] = input.toUpperCase();
-					this.bestPossibleSolutions[2] = input.toUpperCase();
-
+					for (String str: bestPossibleSolutions) str = input.toUpperCase();
 				} else {
-					this.bestPossibleSolutions[0] = input.substring(0, 1).toUpperCase().concat(input.substring(1));
-					this.bestPossibleSolutions[1] = input.substring(0, 1).toUpperCase().concat(input.substring(1));
-					this.bestPossibleSolutions[2] = input.substring(0, 1).toUpperCase().concat(input.substring(1));
+					for (String str: bestPossibleSolutions) str 
+					= input.substring(0, 1).toUpperCase().concat(input.substring(1));
 				}
 			}
 			if (this.isSpelledCorrectly == false) {
 				this.findSuggestions();
 				if (input.length() == 1) {
-					this.bestPossibleSolutions[0] = this.bestPossibleSolutions[0].toUpperCase();
-					this.bestPossibleSolutions[1] = this.bestPossibleSolutions[1].toUpperCase();
-					this.bestPossibleSolutions[2] = this.bestPossibleSolutions[2].toUpperCase();
-
+					for (String str :this.bestPossibleSolutions) str = str.toUpperCase();
 				} else {
-					this.bestPossibleSolutions[0] = this.bestPossibleSolutions[0].substring(0, 1).toUpperCase()
-							.concat(this.bestPossibleSolutions[0].substring(1));
-					this.bestPossibleSolutions[1] = this.bestPossibleSolutions[1].substring(0, 1).toUpperCase()
-							.concat(this.bestPossibleSolutions[1].substring(1));
-					this.bestPossibleSolutions[2] = this.bestPossibleSolutions[2].substring(0, 1).toUpperCase()
-							.concat(this.bestPossibleSolutions[2].substring(1));
+					for (String str :this.bestPossibleSolutions) str 
+					= str.substring(0, 1).toUpperCase().concat(str.substring(1));
 				}
 			}
 		} else {
@@ -172,7 +180,8 @@ public class Word {
 	 */
 	public boolean existsInDictionary(String input) throws SQLException {
 		try {
-			CallableStatement cStmt = SpellCheckerUI.myConn.prepareCall("{call existsindictionary(?)}");
+			CallableStatement cStmt = SpellCheckerUI.myConn
+					.prepareCall("{call existsindictionary(?)}");
 			cStmt.setString(1, input);
 			cStmt.execute();
 			if (cStmt.getResultSet().next()) {
@@ -186,9 +195,25 @@ public class Word {
 		}
 	}
 
+	/**
+	 * Finds Alternatives of the user's misspelled words
+	 * <p>
+	 * findSuggestions connects with MySQL in order to execute a Stored Procedure
+	 * that through the Levenshtein Distance algorithm finds 3 or less alternative
+	 * suggestions of the word that the user misspelled. <br>
+	 * Afterwards, it inserts the suggestions into a table and closes the ResultSet
+	 * and CallableStatement that were used through the execution of the stored
+	 * procedure
+	 * 
+	 * @see ResultSet
+	 * @see CallableStatement
+	 * 
+	 * @throws SQLException
+	 */
 	public void findSuggestions() throws SQLException {
 		try {
-			CallableStatement cStmt = SpellCheckerUI.myConn.prepareCall("{call findsuggestions(?)}");
+			CallableStatement cStmt = SpellCheckerUI.myConn
+					.prepareCall("{call findsuggestions(?)}");
 			cStmt.setString(1, this.word);
 			cStmt.execute();
 			ResultSet rs = cStmt.getResultSet();
@@ -204,6 +229,15 @@ public class Word {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	public String getWord() {
@@ -240,6 +274,6 @@ public class Word {
 
 	@Override
 	public String toString() {
-		return word + dividingChars;
+		return this.word + this.dividingChars;
 	}
 }
