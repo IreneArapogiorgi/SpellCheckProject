@@ -1020,11 +1020,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     }                                                 
 
     private void finalTextButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        for (Word w : wordsList){
-            finalTextTextArea.setText(w.toString());
-        }
-        finalTextDialog.setVisible(true);
-        spellCheckDialog.setVisible(false);
+         String string = new String();
+    	   for (Word w : wordsList){
+    		      string = string.concat(w.toString());            
+         }
+    	   finalTextTextArea.setText(string);
+         finalTextDialog.setVisible(true);
+         spellCheckDialog.setVisible(false);
     }                                               
 
     private void replaceAltWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
