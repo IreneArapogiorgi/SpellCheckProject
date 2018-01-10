@@ -1,4 +1,4 @@
-/*dictionary is a schema created in the schemas section.. 
+/*javadics is a schema created in the schemas section.. 
 -----  create schema `dictionary` default CHAR SET utf8;  ----*/
 use dictionary;
 DROP table IF EXISTS `greekwords`;
@@ -7,9 +7,9 @@ CREATE TABLE greekwords (
      words varchar(27) NOT NULL,
      length int,
      PRIMARY KEY (id)
-);
+); 
 
-/*drop index WordIndex ON GreekWords;*/
+/* drop index WordIndex ON GreekWords; */
 LOAD DATA LOCAL INFILE 'C:/Users/georg/Desktop/Working Dictionaries/greekdictionary.txt' INTO TABLE greekwords
 CHARACTER SET utf8
 FIELDS TERMINATED BY '\t'
@@ -89,7 +89,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `findsuggestions`(IN word varchar(28
 BEGIN
 declare wlen int;
 SET wlen = CHAR_LENGTH(word);
-CREATE temporary table `temptable` AS
 select words  
 from greekwords
 where  length = wlen
