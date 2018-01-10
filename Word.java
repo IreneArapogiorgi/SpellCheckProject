@@ -1,4 +1,4 @@
-package gr.aueb.dmst.SpellChecker.Javengers;
+package gr.aueb.dmst.theSpellCheckProject.Javengers;
 
 //imports classes to be used in connection with database
 import java.sql.CallableStatement;
