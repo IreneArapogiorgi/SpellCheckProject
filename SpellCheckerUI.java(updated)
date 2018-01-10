@@ -77,7 +77,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         wrongWordsScrollPane = new javax.swing.JScrollPane();
         wrongWordsList = new javax.swing.JList();
         altWordButton = new javax.swing.JButton();
-        ignoreWordButton = new javax.swing.JButton();
         cancelButton1 = new javax.swing.JButton();
         alternativeWordDialog = new javax.swing.JDialog();
         altWordPanel = new javax.swing.JPanel();
@@ -143,13 +142,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             }
         });
 
-        ignoreWordButton.setText("Ignore");
-        ignoreWordButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ignoreWordButtonActionPerformed(evt);
-            }
-        });
-
         cancelButton1.setText("Cancel");
         cancelButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,12 +159,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(wrongSpelledTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(altWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ignoreWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cancelButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        wrongSpelledTextPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {altWordButton, cancelButton1, ignoreWordButton});
+        wrongSpelledTextPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {altWordButton, cancelButton1});
 
         wrongSpelledTextPanelLayout.setVerticalGroup(
             wrongSpelledTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,8 +173,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                     .addGroup(wrongSpelledTextPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(altWordButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ignoreWordButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton1))
                     .addComponent(wrongWordsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
@@ -788,9 +777,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
     private void altWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         String wrongWord = (String) wrongWordsList.getSelectedValue();
-        Iterator<Word> iterator = wordsList.iterator();
-        while (iterator.hasNext() && !(iterator.next().getWord().equals(wrongWord))) {
-            altWords = iterator.next().getBestPossibleSolutions();
+        for (Word w : wordsList) {
+            if (w.getWord().equals(wrongWord)){
+                altWords = w.getBestPossibleSolutions();
+                break;
+            }
         }
         alternativeWordDialog.setVisible(true);
         wrongWordsList.clearSelection();
@@ -925,10 +916,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         htmlDialog.setVisible(false);
     }                                                      
 
-    private void ignoreWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
-    }                                                
-
     private void usernameTextFieldFocusGained(java.awt.event.FocusEvent evt) {                                              
         usernameTextField.setText("");
     }                                             
@@ -1037,7 +1024,6 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private javax.swing.JButton exitButton2;
     private javax.swing.JDialog fileDialog;
     private javax.swing.JDialog htmlDialog;
-    private javax.swing.JButton ignoreWordButton;
     private javax.swing.JButton nextButton1;
     private javax.swing.JButton nextButton2;
     private javax.swing.JPanel openFilePanel;
