@@ -80,7 +80,7 @@ public class Word {
 	/** Method that checks if the String of the given word is the first word of the
 	 * sentence the user wrote. it takes as input a String with the word the user
 	 * gave and its count in the List of Words that holds the full text it is
-	 * checked both from whether count is equal to 1 AND from wether the
+	 * checked both from whether count is equal to 1 AND from whether the
 	 * dividingChars of the previous Word object in the list are such that declare
 	 * the end of the sentence. in the mentioned cases the method returns true,
 	 * otherwise it returns false the usage of this method is needed to determine
@@ -230,7 +230,6 @@ public class Word {
 			ex.printStackTrace();
 		}
 	}
-	
 
 	public int getCount() {
 		return count;
