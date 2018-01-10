@@ -1,4 +1,4 @@
-/*javadics is a schema created in the schemas section.. 
+/*dictionary is a schema created in the schemas section.. 
 -----  create schema `dictionary` default CHAR SET utf8;  ----*/
 use dictionary;
 DROP table IF EXISTS `greekwords`;
