@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 	/*
-	 * WordTest_isANumber class tests the correctness of is¡Number method from Word class
+	 * WordTest_isANumber class tests the correctness of is√ÅNumber method from Word class
 	 */
 
 public class WordTest_isANumber {
@@ -23,22 +23,22 @@ public class WordTest_isANumber {
 	}
 
 	/*
-	 * testIs¡Number method is used to check if a string is a number.
+	 * testIsANumber method is used to check if a string is a number.
 	 *
 	 * assertEguals method checks if the boolean variable (b) is actually true.
 	 *
 	 */
 
 	@Test
-	public void testIs¡Number() throws SQLException {
+	public void testIsANumber() throws SQLException {
 		String x = "23";
-		boolean b = Word.is¡Number(x);
+		boolean b = Word.is√ÅNumber(x);
 		assertEquals(true, b);
 
 	}
 
 	/*
-	 * testIs¡Number1 method is used to check if a string is a number combined
+	 * testIs√ÅNumber1 method is used to check if a string is a number combined
 	 * with letters.
 	 *
 	 * assertEguals method checks if the boolean variable (b) is actually false.
@@ -46,9 +46,9 @@ public class WordTest_isANumber {
 	 */
 
 	@Test
-	public void testIs¡Number1() throws SQLException {
-		String x = "2s34d";
-		boolean b = Word.is¡Number(x);
+	public void testIsANumber1() throws SQLException {
+		String x = "2œÉ34Œ¥";
+		boolean b = Word.is√ÅNumber(x);
 		assertEquals(false, b);
 
 	}
