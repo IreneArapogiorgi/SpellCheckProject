@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 /**
 * SpellCheckerUI class is the leading class of our project.<br>
-* It is used for the Graphical User Interface(GUI) of the spell checker project.
+* It is used for the Graphical User Interface (GUI) of the spell checker project.
 * 
 * @author Javengers team
 * @see Word,DataInput
@@ -883,6 +883,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
     private void cancelTextPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         textDialog.setVisible(false);
+        textTextArea.setText(null);
     }                                                     
 
     private void pathTextFieldFocusGained(java.awt.event.FocusEvent evt) {                                          
@@ -977,6 +978,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         System.exit(0);
     }                                           
 
+    /** Java DataBase Connectivity
+    * <p>
+    * nextButton2ActionPerformed establishes a connection with the MySQL database that the other methods like existsInDictionary and findSuggestions use.
+    * nextButton2ActionPerformed needs the username and password of the administrator of MySQL, and therefore the user is asked to insert them.
+    * 
+    * @param evt
+    */
     private void nextButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         boolean w;
         try {
@@ -1035,7 +1043,14 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private void cancelButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
         alternativeWordDialog.setVisible(false);
     }                                             
-
+    
+    /** Handles a list of words 
+     * 
+     * listHandling processes the words from the text that the user wrote/imported 
+     * in order to check if each word is spelled correctly, and if not, to find suggestions
+     * 
+     * @throws SQLException
+     */
     public static void listHandling() throws SQLException {
         Iterator<Word> iterator = wordsList.iterator();
         while (iterator.hasNext()) {
@@ -1070,6 +1085,8 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
+            /* run method is used to execute SpellCheckerUI */
             public void run() {
                 new SpellCheckerUI().setVisible(true);
             }
