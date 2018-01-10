@@ -1,4 +1,4 @@
-package my.spellchecker;
+package gr.aueb.dmst.SpellChecker.Javengers;
 
 import java.sql.SQLException;
 import java.util.List;
