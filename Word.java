@@ -1,4 +1,3 @@
-package gr.aueb.dmst.theSpellCheckProject.Javengers;
 
 //imports classes to be used in connection with database
 import java.sql.CallableStatement;
@@ -80,7 +79,7 @@ public class Word {
 	/** Method that checks if the String of the given word is the first word of the
 	 * sentence the user wrote. it takes as input a String with the word the user
 	 * gave and its count in the List of Words that holds the full text it is
-	 * checked both from whether count is equal to 1 AND from whether the
+	 * checked both from whether count is equal to 1 AND from wether the
 	 * dividingChars of the previous Word object in the list are such that declare
 	 * the end of the sentence. in the mentioned cases the method returns true,
 	 * otherwise it returns false the usage of this method is needed to determine
@@ -95,7 +94,8 @@ public class Word {
 		if (count <= 1) {
 			return true;
 		} else {
-			if (SpellCheckerUI.wordsList.get(count - 1).getDividingChars().matches("[;!.]")) {
+			Pattern p = Pattern.compile("[;!.]");
+			if (p.matcher(SpellCheckerUI.wordsList.get(count - 1).getDividingChars()).matches()) {
 				return true;
 			} else {
 				return false;
@@ -142,10 +142,14 @@ public class Word {
 			if (this.isSpelledCorrectly && input.equals(input.toLowerCase())) {
 				this.isSpelledCorrectly = false;
 				if (input.length() == 1) {
-					for (String str: bestPossibleSolutions) str = input.toUpperCase();
+					for (int i = 0; i < 3; i ++) {
+						this.bestPossibleSolutions[i] = input.toUpperCase();
+					}
 				} else {
-					for (String str: bestPossibleSolutions) str 
-					= input.substring(0, 1).toUpperCase().concat(input.substring(1));
+					for (int i = 0; i < 3; i ++) {
+						this.bestPossibleSolutions[i] = input.substring(0, 1)
+								.toUpperCase().concat(input.substring(1));
+					}
 				}
 			}
 			if (this.isSpelledCorrectly == false) {
@@ -230,6 +234,7 @@ public class Word {
 			ex.printStackTrace();
 		}
 	}
+	
 
 	public int getCount() {
 		return count;
