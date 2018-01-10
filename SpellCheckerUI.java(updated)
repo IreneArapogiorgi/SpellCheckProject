@@ -84,6 +84,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         altWordList = new javax.swing.JList();
         cancelButton2 = new javax.swing.JButton();
         replaceAltWordButton = new javax.swing.JButton();
+        finalTextButton = new javax.swing.JButton();
         exceptionInOpenFileUsingPathDialog = new javax.swing.JDialog();
         exceptionLabel = new javax.swing.JLabel();
         closeExceptionWindowButton = new javax.swing.JButton();
@@ -120,6 +121,10 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         passwordPasswordField = new javax.swing.JPasswordField();
         exitButton2 = new javax.swing.JButton();
         nextButton2 = new javax.swing.JButton();
+        finalTextDialog = new javax.swing.JDialog();
+        finalTextPanel = new javax.swing.JPanel();
+        finalTextScrollPane = new javax.swing.JScrollPane();
+        finalTextTextArea = new javax.swing.JTextArea();
         welcomePanel = new javax.swing.JPanel();
         welcomeLabel = new javax.swing.JLabel();
         nextButton1 = new javax.swing.JButton();
@@ -214,6 +219,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             }
         });
 
+        finalTextButton.setText("Show Final Text");
+        finalTextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalTextButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout altWordPanelLayout = new javax.swing.GroupLayout(altWordPanel);
         altWordPanel.setLayout(altWordPanelLayout);
         altWordPanelLayout.setHorizontalGroup(
@@ -222,13 +234,14 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(altWordScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelButton2)
-                    .addComponent(replaceAltWordButton))
+                .addGroup(altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cancelButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(replaceAltWordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(finalTextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        altWordPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton2, replaceAltWordButton});
+        altWordPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton2, finalTextButton, replaceAltWordButton});
 
         altWordPanelLayout.setVerticalGroup(
             altWordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,11 +252,14 @@ public class SpellCheckerUI extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(replaceAltWordButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cancelButton2)
-                        .addGap(16, 16, 16))
+                        .addComponent(finalTextButton)
+                        .addGap(10, 10, 10)
+                        .addComponent(cancelButton2))
                     .addComponent(altWordScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
                 .addContainerGap())
         );
+
+        altWordPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {finalTextButton, replaceAltWordButton});
 
         javax.swing.GroupLayout alternativeWordDialogLayout = new javax.swing.GroupLayout(alternativeWordDialog.getContentPane());
         alternativeWordDialog.getContentPane().setLayout(alternativeWordDialogLayout);
@@ -537,7 +553,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
 
         htmlDialog.setMinimumSize(new java.awt.Dimension(500, 170));
 
-        openHtmlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Open Html", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        openHtmlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Open URL", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
         urlTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         urlTextField.setText("Write Url");
@@ -719,6 +735,47 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             .addComponent(databasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
         );
 
+        finalTextPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Final Text", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        finalTextPanel.setMinimumSize(new java.awt.Dimension(500, 300));
+
+        finalTextTextArea.setEditable(false);
+        finalTextTextArea.setBackground(new java.awt.Color(240, 240, 240));
+        finalTextTextArea.setColumns(20);
+        finalTextTextArea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        finalTextTextArea.setRows(1000000);
+        finalTextTextArea.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        finalTextScrollPane.setViewportView(finalTextTextArea);
+
+        javax.swing.GroupLayout finalTextPanelLayout = new javax.swing.GroupLayout(finalTextPanel);
+        finalTextPanel.setLayout(finalTextPanelLayout);
+        finalTextPanelLayout.setHorizontalGroup(
+            finalTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(finalTextPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(finalTextScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        finalTextPanelLayout.setVerticalGroup(
+            finalTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(finalTextPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(finalTextScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout finalTextDialogLayout = new javax.swing.GroupLayout(finalTextDialog.getContentPane());
+        finalTextDialog.getContentPane().setLayout(finalTextDialogLayout);
+        finalTextDialogLayout.setHorizontalGroup(
+            finalTextDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(finalTextDialogLayout.createSequentialGroup()
+                .addComponent(finalTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        finalTextDialogLayout.setVerticalGroup(
+            finalTextDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(finalTextPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         welcomePanel.setBackground(new java.awt.Color(226, 226, 230));
@@ -879,7 +936,14 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     }                                           
 
     private void replaceAltWordButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
+        String alternativeWord = (String) wrongWordsList.getSelectedValue();
+        for (Word w : wordsList) {
+            if (w.getWord().equals(alternativeWord)){
+                w.setWord(alternativeWord);
+                w.setSpelledCorrectly(true);
+                break;
+            }
+        }
     }                                                    
 
     private void browseHtmlButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
@@ -958,6 +1022,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
         passwordPasswordField.setText("");
     }                                                 
 
+    private void finalTextButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        for (Word w : wordsList){
+            finalTextTextArea.setText(w.toString());
+        }
+        finalTextDialog.setVisible(true);
+    }                                               
+
     public static void listHandling() throws SQLException {
         Iterator<Word> iterator = wordsList.iterator();
         while (iterator.hasNext()) {
@@ -1023,6 +1094,11 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     private javax.swing.JButton exitButton1;
     private javax.swing.JButton exitButton2;
     private javax.swing.JDialog fileDialog;
+    private javax.swing.JButton finalTextButton;
+    private javax.swing.JDialog finalTextDialog;
+    private javax.swing.JPanel finalTextPanel;
+    private javax.swing.JScrollPane finalTextScrollPane;
+    private javax.swing.JTextArea finalTextTextArea;
     private javax.swing.JDialog htmlDialog;
     private javax.swing.JButton nextButton1;
     private javax.swing.JButton nextButton2;
