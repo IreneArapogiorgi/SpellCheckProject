@@ -1,4 +1,6 @@
 
+package gr.aueb.dmst.theSpellCheckProject.Javengers;
+
 //imports classes to be used in connection with database
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -7,14 +9,14 @@ import java.util.regex.Pattern;
 
 
  /**
-  * Word class provides all the useful information about each word of the given text 
+  * Word class provides all the useful information about each word of the given text
   * and all the necessary functionalities to process the words.
   * <p>
   * The uses of the class are to: <br>
   * - determine whether a word is the first word of the sentence <br>
   * - determine whether a string consists only of numeric characters <br>
   * - determine whether a word is spelled correctly <br>
-  * - find the three most relevant words in the dictionary, to suggest as 
+  * - find the three most relevant words in the dictionary, to suggest as
   * corrections if the word is incorrect <br>
   * @author Javengers team
   */
@@ -27,7 +29,7 @@ public class Word {
 	/**
 	 * field to be used in existsInDictionary and findSuggestions in order to
 	 * connect to the MySQL database
-	 * 
+	 *
 	 * @see existsInDictionary(String)
 	 * @see findSuggestions()
 	 */
@@ -51,7 +53,7 @@ public class Word {
 	 * value is inserted in the count value, thus the (static) index variable shows
 	 * the number<br>
 	 * of objects created and the count shows the ascending number of each object.
-	 * 
+	 *
 	 * @param inputWord
 	 *            - the word (or number) of the object
 	 * @param dividingChars
@@ -67,12 +69,12 @@ public class Word {
 	/**
 	 * Method that checks if a String is a number, so as to not check if numbers
 	 * exist in the database.
-	 * 
+	 *
 	 * @param str
 	 *            input String
 	 * @return
 	 */
-	public boolean isΑNumber() {
+	public boolean isANumber() {
 		return pattern.matcher(this.getWord()).matches();
 	}
 
@@ -84,7 +86,7 @@ public class Word {
 	 * the end of the sentence. in the mentioned cases the method returns true,
 	 * otherwise it returns false the usage of this method is needed to determine
 	 * how the word will be later processed
-	 * 
+	 *
 	 * @param input
 	 *            input String , count input int
  	 * @return boolean
@@ -114,7 +116,7 @@ public class Word {
 	 * checked with both an upper case and an lower case first letter.<br>
 	 * If the previous cases are not met, and the word is not found in the database,
 	 * then the findSuggestions method is called.
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 
@@ -134,7 +136,7 @@ public class Word {
 				this.bestPossibleSolutions[1] = "στρογγυλοκουλουριαζόσασταν";
 				this.bestPossibleSolutions[2] = "στρογγυλοκουλουριαζόντουσαν";
 			}
-		} else if (this.isΑNumber()) {
+		} else if (this.isANumber()) {
 			this.isSpelledCorrectly = true;
 		} else if (this.isFirstWord()) {
 			this.isSpelledCorrectly = (existsInDictionary(input) ||
@@ -157,7 +159,7 @@ public class Word {
 				if (input.length() == 1) {
 					for (String str :this.bestPossibleSolutions) str = str.toUpperCase();
 				} else {
-					for (String str :this.bestPossibleSolutions) str 
+					for (String str :this.bestPossibleSolutions) str
 					= str.substring(0, 1).toUpperCase().concat(str.substring(1));
 				}
 			}
@@ -176,7 +178,7 @@ public class Word {
 	 * in order to use a MySQL Stored Procedure<br>
 	 * and search for the word in the database. If a result is returned from the
 	 * stored procedure, then the word has been found.
-	 * 
+	 *
 	 * @param input
 	 *            - the word being searched
 	 * @return boolean result based on whether the word is spelled correctly
@@ -208,10 +210,10 @@ public class Word {
 	 * Afterwards, it inserts the suggestions into a table and closes the ResultSet
 	 * and CallableStatement that were used through the execution of the stored
 	 * procedure
-	 * 
+	 *
 	 * @see ResultSet
 	 * @see CallableStatement
-	 * 
+	 *
 	 * @throws SQLException
 	 */
 	public void findSuggestions() throws SQLException {
@@ -234,7 +236,7 @@ public class Word {
 			ex.printStackTrace();
 		}
 	}
-	
+
 
 	public int getCount() {
 		return count;
