@@ -1,5 +1,5 @@
 
-package gr.aueb.dmst.theSpellcheckProject.Javengers
+package gr.aueb.dmst.theSpellcheckProject.Javengers;
 
 import java.sql.SQLException;
 import java.util.List;
