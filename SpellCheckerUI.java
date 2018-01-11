@@ -1,4 +1,6 @@
 
+package gr.aueb.dmst.aueb.theSpellcheckProject.Javengers
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -994,12 +996,13 @@ public class SpellCheckerUI extends javax.swing.JFrame {
     * @param evt
     */
     @SuppressWarnings("deprecation")
-	private void nextButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        boolean w;
+	private void nextButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        boolean w = false;
         try {
             w = true;
             username = usernameTextField.getText();
             password = passwordPasswordField.getText();
+            Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://127.0.0.1:3306/dictionary?useSSL=false";
             myConn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
@@ -1009,7 +1012,10 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             passwordPasswordField.setText("");
             databaseDialog.setVisible(true);
             Logger.getLogger(SpellCheckerUI.class.getName()).log(Level.SEVERE, null, e);
-        }
+	} catch (ClassNotFoundException e) {
+            e.printStackTrace();
+	}
+		
         if (w) {
            chooseDialog.setVisible(true);
            databaseDialog.setVisible(false);
