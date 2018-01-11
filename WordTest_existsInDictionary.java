@@ -44,8 +44,8 @@ public class WordTest_existsInDictionary {
 		try {
 			Word word1 = new Word("Ο", " ");
 			Word word2 = new Word("καιρώς", ".");
-			boolean bW1 = word1.existsInDictionary(word1.word);
-			boolean bW2 = word2.existsInDictionary(word2.word);
+			boolean bW1 = word1.existsInDictionary(word1.getWord());
+			boolean bW2 = word2.existsInDictionary(word2.getWord());
 			assertTrue(bW1);
 			assertFalse(bW2);
 		} catch (Exception e) {
