@@ -1002,7 +1002,7 @@ public class SpellCheckerUI extends javax.swing.JFrame {
             w = true;
             username = usernameTextField.getText();
             password = passwordPasswordField.getText();
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             String url = "jdbc:mysql://127.0.0.1:3306/dictionary?useSSL=false";
             myConn = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
