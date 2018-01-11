@@ -1,4 +1,4 @@
-package gr.aueb.dmst.aueb.theSpellCheckProject.Javengers;
+package gr.aueb.dmst.theSpellCheckProject.Javengers;
 
 import static org.junit.Assert.*;
 
